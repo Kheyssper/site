@@ -6,6 +6,7 @@
 <title>Gaspar Cossa — Full Stack · DevOps · IA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -185,9 +186,9 @@ h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw
 .proj-body p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
 .proj-stack{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
 .proj-stack span{font-family:'Space Mono',monospace;font-size:10px;background:var(--dim);color:var(--muted);padding:3px 8px;border-radius:2px}
-.proj-link{font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);text-decoration:none;transition:opacity .2s}
+.proj-link{font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);text-decoration:none;transition:opacity .2s;display:inline-flex;align-items:center;gap:8px}
 .proj-link:hover{opacity:.7}
-.proj-link::after{content:' ↗'}
+.proj-link i{font-size:0.9em}
 .prize-card{grid-column:1/-1;background:linear-gradient(135deg,#1a1300,#0d0a00);border:1px solid rgba(201,168,76,.4);border-radius:4px;padding:36px;display:flex;align-items:center;gap:36px;position:relative;overflow:hidden}
 .prize-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,.15),transparent 70%)}
 .prize-trophy{font-size:56px;flex-shrink:0}
@@ -218,7 +219,7 @@ h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw
 .contact-links{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
 .contact-link{display:flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--text);text-decoration:none;letter-spacing:.5px;border:1px solid var(--border);padding:12px 22px;border-radius:2px;transition:all .2s;cursor:none}
 .contact-link:hover{border-color:var(--gold);color:var(--gold)}
-.contact-link svg{width:15px;height:15px;flex-shrink:0}
+.contact-link svg,.contact-link i{width:15px;height:15px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center}
 
 footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space Mono',monospace;font-size:11px;border-top:1px solid var(--border);letter-spacing:1px}
 
@@ -299,7 +300,7 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
       <div class="hero-ctas">
         <a href="#projects" class="btn btn-gold">Ver trabalhos</a>
         <a href="#contact" class="btn btn-ghost">Falar comigo</a>
-        <a href="https://github.com/Kheyssper" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+        <a href="https://github.com/Kheyssper" target="_blank" class="btn btn-ghost">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
       </div>
     </div>
 
@@ -322,7 +323,7 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
   <div class="hero-stats-row">
     <div class="stat"><div class="stat-num">6+</div><div class="stat-label">Anos de<br>experiência</div></div>
     <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Projetos<br>produção</div></div>
-    <div class="stat"><div class="stat-num" style="color:var(--gold)">🏆</div><div class="stat-label">CodeLabs<br>2024</div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--gold)"><i class="fa-solid fa-trophy"></i></div><div class="stat-label">CodeLabs<br>2024</div></div>
   </div>
   <div class="scroll-hint"><div class="scroll-line"></div><span>SCROLL</span></div>
 </section>
@@ -332,12 +333,12 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
   <p class="section-eyebrow reveal">O que faço</p>
   <h2 class="sec-h2 reveal">Domínios de actuação</h2>
   <div class="areas-track">
-    <div class="area-card" style="--card-color:#c9a84c;--card-accent:rgba(201,168,76,.06)"><div class="area-num">01 / 06</div><span class="area-icon">⚡</span><h3>Full Stack Dev</h3><p>Arquitectura e desenvolvimento de sistemas web completos — do banco de dados à interface.</p><div class="area-tags"><span class="area-tag">Laravel</span><span class="area-tag">React.js</span><span class="area-tag">GoLang</span><span class="area-tag">Spring Boot</span><span class="area-tag">MySQL</span></div></div>
-    <div class="area-card" style="--card-color:#00d4ff;--card-accent:rgba(0,212,255,.04)"><div class="area-num">02 / 06</div><span class="area-icon">🛰️</span><h3>DevOps & Infra</h3><p>Docker, CI/CD, servidores Linux, Nginx, DNS/SSL, VPN. Infra que não cai — ou que resolvo quando cai.</p><div class="area-tags"><span class="area-tag">Docker</span><span class="area-tag">GitHub Actions</span><span class="area-tag">Azure DevOps</span><span class="area-tag">Nginx</span><span class="area-tag">Cloudflare</span></div></div>
-    <div class="area-card" style="--card-color:#a78bfa;--card-accent:rgba(167,139,250,.05)"><div class="area-num">03 / 06</div><span class="area-icon">🤖</span><h3>IA & Automação</h3><p>Pipelines RAG, agentes autónomos, integração LLM, workflows n8n. Vibe coder que abraça o futuro.</p><div class="area-tags"><span class="area-tag">n8n</span><span class="area-tag">RAG</span><span class="area-tag">OpenAI API</span><span class="area-tag">pgvector</span><span class="area-tag">YOLOv8</span></div></div>
-    <div class="area-card" style="--card-color:#34d399;--card-accent:rgba(52,211,153,.04)"><div class="area-num">04 / 06</div><span class="area-icon">💳</span><h3>Fintech & Pagamentos</h3><p>M-Pesa, e-Mola, Nhutchi eWallet, KYC com Sumsub. O mercado moçambicano do futuro passa por aqui.</p><div class="area-tags"><span class="area-tag">M-Pesa API</span><span class="area-tag">e-Mola</span><span class="area-tag">Sumsub KYC</span><span class="area-tag">Webhooks</span></div></div>
-    <div class="area-card" style="--card-color:#fb923c;--card-accent:rgba(251,146,60,.05)"><div class="area-num">05 / 06</div><span class="area-icon">🎯</span><h3>Gestão de Projetos</h3><p>Scrum Master na prática. Sprint planning, Azure DevOps, coordenação de equipas.</p><div class="area-tags"><span class="area-tag">Scrum</span><span class="area-tag">Azure Boards</span><span class="area-tag">GitHub Projects</span><span class="area-tag">Notion</span></div></div>
-    <div class="area-card" style="--card-color:#f472b6;--card-accent:rgba(244,114,182,.05)"><div class="area-num">06 / 06</div><span class="area-icon">📷</span><h3>Criação de Conteúdo</h3><p>Fotografia e vídeo corporativo. Olho criativo que completa o perfil técnico.</p><div class="area-tags"><span class="area-tag">Fotografia</span><span class="area-tag">Vídeo</span><span class="area-tag">Eventos</span><span class="area-tag">Corporativo</span></div></div>
+    <div class="area-card" style="--card-color:#c9a84c;--card-accent:rgba(201,168,76,.06)"><div class="area-num">01 / 06</div><i class="area-icon fa-solid fa-code"></i><h3>Full Stack Dev</h3><p>Arquitectura e desenvolvimento de sistemas web completos — do banco de dados à interface.</p><div class="area-tags"><span class="area-tag">Laravel</span><span class="area-tag">React.js</span><span class="area-tag">GoLang</span><span class="area-tag">Spring Boot</span><span class="area-tag">MySQL</span></div></div>
+    <div class="area-card" style="--card-color:#00d4ff;--card-accent:rgba(0,212,255,.04)"><div class="area-num">02 / 06</div><i class="area-icon fa-solid fa-server"></i><h3>DevOps & Infra</h3><p>Docker, CI/CD, servidores Linux e Windows, Nginx, DNS/SSL, VPN. Infra que não cai — ou que resolvo quando cai.</p><div class="area-tags"><span class="area-tag">Docker</span><span class="area-tag">GitHub Actions</span><span class="area-tag">Azure DevOps</span><span class="area-tag">Nginx</span><span class="area-tag">Cloudflare</span></div></div>
+    <div class="area-card" style="--card-color:#a78bfa;--card-accent:rgba(167,139,250,.05)"><div class="area-num">03 / 06</div><i class="area-icon fa-solid fa-robot"></i><h3>IA & Automação</h3><p>Pipelines RAG, agentes autónomos, integração LLM, workflows n8n. Vibe coder que abraça o futuro.</p><div class="area-tags"><span class="area-tag">n8n</span><span class="area-tag">RAG</span><span class="area-tag">OpenAI API</span><span class="area-tag">pgvector</span><span class="area-tag">YOLOv8</span></div></div>
+    <div class="area-card" style="--card-color:#34d399;--card-accent:rgba(52,211,153,.04)"><div class="area-num">04 / 06</div><i class="area-icon fa-solid fa-credit-card"></i><h3>Fintech & Pagamentos</h3><p>M-Pesa, e-Mola, Nhutchi eWallet, KYC com Sumsub. O mercado moçambicano do futuro passa por aqui.</p><div class="area-tags"><span class="area-tag">M-Pesa API</span><span class="area-tag">e-Mola</span><span class="area-tag">Sumsub KYC</span><span class="area-tag">Webhooks</span></div></div>
+    <div class="area-card" style="--card-color:#fb923c;--card-accent:rgba(251,146,60,.05)"><div class="area-num">05 / 06</div><i class="area-icon fa-solid fa-bullseye"></i><h3>Gestão de Projetos</h3><p>Scrum Master na prática. Sprint planning, Azure DevOps, Notion e coordenação de equipas.</p><div class="area-tags"><span class="area-tag">Scrum</span><span class="area-tag">Azure Boards</span><span class="area-tag">GitHub Projects</span><span class="area-tag">Notion</span></div></div>
+    <div class="area-card" style="--card-color:#f472b6;--card-accent:rgba(244,114,182,.05)"><div class="area-num">06 / 06</div><i class="area-icon fa-solid fa-camera"></i><h3>Criação de Conteúdo</h3><p>Fotografia e vídeo corporativo. Olho criativo que completa o perfil técnico.</p><div class="area-tags"><span class="area-tag">Fotografia</span><span class="area-tag">Vídeo</span><span class="area-tag">Eventos</span><span class="area-tag">Corporativo</span></div></div>
   </div>
 </section>
 
@@ -375,28 +376,47 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
       <!-- STACK BARS -->
       <div class="stack-card reveal">
         <div class="stack-label">Top Skills</div>
-        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">Laravel/PHP</span><span class="stack-item-pct">95%</span></div><div class="stack-bar"><div class="stack-fill" data-w="95" style="background:linear-gradient(90deg,#c9a84c,#e8c97a)"></div></div></div>
-        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">Docker/DevOps</span><span class="stack-item-pct">90%</span></div><div class="stack-bar"><div class="stack-fill" data-w="90" style="background:linear-gradient(90deg,#00d4ff,#0ea5e9)"></div></div></div>
-        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">React.js</span><span class="stack-item-pct">85%</span></div><div class="stack-bar"><div class="stack-fill" data-w="85" style="background:linear-gradient(90deg,#a78bfa,#818cf8)"></div></div></div>
-        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">GoLang</span><span class="stack-item-pct">80%</span></div><div class="stack-bar"><div class="stack-fill" data-w="80" style="background:linear-gradient(90deg,#34d399,#10b981)"></div></div></div>
-        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">IA / n8n / RAG</span><span class="stack-item-pct">80%</span></div><div class="stack-bar"><div class="stack-fill" data-w="80" style="background:linear-gradient(90deg,#fb923c,#f59e0b)"></div></div></div>
-        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">Python / CV</span><span class="stack-item-pct">72%</span></div><div class="stack-bar"><div class="stack-fill" data-w="72" style="background:linear-gradient(90deg,#f472b6,#ec4899)"></div></div></div>
+        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">Laravel/PHP</span></div><div class="stack-bar"><div class="stack-fill" data-w="95" style="background:linear-gradient(90deg,#c9a84c,#e8c97a)"></div></div></div>
+        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">Docker/DevOps</span></div><div class="stack-bar"><div class="stack-fill" data-w="90" style="background:linear-gradient(90deg,#00d4ff,#0ea5e9)"></div></div></div>
+        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">React.js</span></div><div class="stack-bar"><div class="stack-fill" data-w="85" style="background:linear-gradient(90deg,#a78bfa,#818cf8)"></div></div></div>
+        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">GoLang</span></div><div class="stack-bar"><div class="stack-fill" data-w="80" style="background:linear-gradient(90deg,#34d399,#10b981)"></div></div></div>
+        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">IA / n8n / RAG</span></div><div class="stack-bar"><div class="stack-fill" data-w="80" style="background:linear-gradient(90deg,#fb923c,#f59e0b)"></div></div></div>
+        <div class="stack-item"><div class="stack-item-row"><span class="stack-item-name">Python / CV</span></div><div class="stack-bar"><div class="stack-fill" data-w="72" style="background:linear-gradient(90deg,#f472b6,#ec4899)"></div></div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══ PROJECTS ══ -->
+<!-- <section id="projects-intro">
+  <p class="section-eyebrow reveal">Contexto</p>
+  <h2 class="sec-h2 reveal">Sistemas, não apenas websites</h2>
+  <p class="reveal">Cada item desta seleção representa uma solução que eu concebi e implementei por completo: APIs, backends e infraestrutura. Os links chegam até a interface pública ou à documentação, mas o valor real está na arquitetura, na lógica e na engenharia por trás de cada sistema, as entidades.</p>
+</section> -->
 <section id="projects">
   <p class="section-eyebrow reveal">Portfólio</p>
   <h2 class="sec-h2 reveal">Construído, deployado,<br>em produção</h2>
+  <p class="section-eyebrow reveal">Contexto</p>
+  <p class="reveal">Cada item desta seleção representa uma solução que eu fiz parte ou na concepcao, desenvolvimento e entrega. Os links chegam até a interface pública ou à documentação, mas o valor real está na arquitetura, na lógica e na engenharia por trás de cada sistema, eu não fiz esses websites, mas os sistemas que fundamentam eles</p>
+  <br>
   <div class="projects-grid">
-    <div class="prize-card reveal"><div class="prize-trophy">🏆</div><div class="prize-body"><h3>1.º Lugar — CodeLabs 2024</h3><p>Visão computacional para o Cornelder de Moçambique. Detecção e classificação de contentores em tempo real. Entrei sem experiência em Computer Vision. Saí em 1.º lugar.</p><div class="prize-badge">Python · OpenCV · YOLOv8n · Cornelder 2024</div></div></div>
-    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#c9a84c,#e8c97a)"></div><div class="proj-body"><div class="proj-type">Fintech · SaaS</div><h3>Nhutchi eWallet</h3><p>Plataforma fintech com M-Pesa, KYC Sumsub, modelo 90/10 automatizado e webhooks bidirecionais.</p><div class="proj-stack"><span>Laravel</span><span>React.js</span><span>MySQL</span><span>M-Pesa</span><span>Sumsub</span><span>Docker</span></div><a href="https://nhutchi.co.mz" class="proj-link" target="_blank">nhutchi.co.mz</a></div></div>
+    <div class="prize-card reveal"><div class="prize-trophy"><i class="fa-solid fa-trophy"></i></div><div class="prize-body"><h3>1.º Lugar — CodeLabs 2024</h3><p>Visão computacional para o Cornelder de Moçambique. Detecção e classificação de contentores em tempo real. Entrei sem experiência em Computer Vision. Saí em 1.º lugar.</p><div class="prize-badge">Python · OpenCV · YOLOv8n · Cornelder 2024</div></div></div>
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#34d399,#10b981)"></div><div class="proj-body"><div class="proj-type">Sustentabilidade · Sistema</div><h3>Consciência Ubuntu</h3><p>Plataforma de governação ambiental onde construí API, backend e lógica de sistema. O link aponta para a iniciativa e as ferramentas que suportam esse ecossistema.</p><div class="proj-stack"><span>API</span><span>Backend</span><span>Linux</span><span>Infra</span><span>Dados</span></div><a href="https://conscienciaubuntu.com/" class="proj-link" target="_blank">conscienciaubuntu.com <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#06b6d4,#0891b2)"></div><div class="proj-body"><div class="proj-type">Saúde · Mobile & Web</div><h3>Consultare</h3><p>Aplicativo móvel e web de primeiros socorros, criado por uma comunidade de médicos moçambicanos em parceria com organizações como a Equip Mozambique. Ajuda famílias a tomar decisões rápidas em emergências domésticas, com conteúdo simples, ilustrações e funcionalidade offline.</p><div class="proj-stack"><span>Mobile</span><span>Web</span><span>Offline</span><span>Ilustrações</span><span>Community</span></div><a href="https://consultare.app/" class="proj-link" target="_blank">consultare.app <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#f97316,#fb923c)"></div><div class="proj-body"><div class="proj-type">Impacto Social · Plataforma</div><h3>Kukura</h3><p>Plataforma/ecossistema que conecta ONGs, doadores e consultores em Moçambique. Suporta formação, verificação de impacto, conexões de financiamento e um marketplace de consultoria para fortalecer organizações sociais.</p><div class="proj-stack"><span>Marketplace</span><span>Verification</span><span>Training</span><span>Payments</span><span>Capacity</span></div><a href="https://kukura.co.mz/" class="proj-link" target="_blank">kukura.co.mz <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#7c3aed,#6d28d9)"></div><div class="proj-body"><div class="proj-type">Jurídico · Plataforma</div><h3>JURIS</h3><p>Plataforma de informação e serviços jurídicos em Moçambique — acesso a leis, regulamentos e documentação legal; apoio a advogados, estudantes e organizações com ferramentas de consulta e gestão documental.</p><div class="proj-stack"><span>Legal</span><span>Documentação</span><span>Pesquisa</span><span>Consultoria</span><span>Compliance</span></div><a href="https://juris.co.mz/" class="proj-link" target="_blank">juris.co.mz <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#16a34a,#4ade80)"></div><div class="proj-body"><div class="proj-type">Agronegócio · Gestão Operacional</div><h3>FAMS</h3><p>Software/plataforma de gestão para operações agrícolas: gestão de produtores, rastreio de produção, pagamentos, relatórios e controle de operações de campo para escalar cadeias produtivas.</p><div class="proj-stack"><span>Agriculture</span><span>Supply Chain</span><span>Payments</span><span>Field Ops</span><span>Analytics</span></div><a href="https://www.fams.co.mz/" class="proj-link" target="_blank">fams.co.mz <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#0ea5a6,#0891b2)"></div><div class="proj-body"><div class="proj-type">Logística · Despacho Aduaneiro</div><h3>Geliban</h3><p>Geliban Consultoria & Serviços de Logística — empresa moçambicana que presta despacho aduaneiro, consultoria em comércio internacional e serviços de transporte e gestão de cargas, focada em facilitar importação e exportação a partir da Beira.</p><div class="proj-stack"><span>Despacho Aduaneiro</span><span>Logística</span><span>Comércio Internacional</span><span>Consultoria</span><span>Portos</span></div><a href="https://www.geliban.com/" class="proj-link" target="_blank">geliban.com <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#c9a84c,#e8c97a)"></div><div class="proj-body"><div class="proj-type">Fintech · SaaS</div><h3>Nhutchi eWallet</h3><p>Plataforma fintech com M-Pesa, KYC Sumsub, modelo 90/10 automatizado e webhooks bidirecionais.</p><div class="proj-stack"><span>Laravel</span><span>React.js</span><span>MySQL</span><span>M-Pesa</span><span>Sumsub</span><span>Docker</span></div><a href="https://nhutchi.co.mz" class="proj-link" target="_blank">nhutchi.co.mz <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
     <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#a78bfa,#818cf8)"></div><div class="proj-body"><div class="proj-type">IA · Automação</div><h3>Pipeline RAG com Agente IA</h3><p>Agente autónomo que ingere livros em PDF, gera conteúdo LinkedIn e envia para aprovação por email.</p><div class="proj-stack"><span>n8n</span><span>OpenAI</span><span>pgvector</span><span>Docker</span><span>Redis</span></div></div></div>
-    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#00d4ff,#0ea5e9)"></div><div class="proj-body"><div class="proj-type">Gov · Jurídico</div><h3>JURIS API + FAMS</h3><p>Sistema jurídico nacional com Scrum Master, CI/CD e Swagger.</p><div class="proj-stack"><span>Laravel</span><span>MySQL</span><span>Bootstrap</span><span>Swagger</span><span>GitHub Actions</span></div><a href="https://juris.co.mz" class="proj-link" target="_blank">juris.co.mz</a></div></div>
-    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#34d399,#10b981)"></div><div class="proj-body"><div class="proj-type">Railway · Governo</div><h3>Moz Railway</h3><p>Sistema de gestão para a rede ferroviária moçambicana em alta disponibilidade.</p><div class="proj-stack"><span>Laravel</span><span>MySQL</span><span>Docker</span><span>Nginx</span><span>GitLab CI/CD</span></div><a href="https://mzrailway.com" class="proj-link" target="_blank">mzrailway.com</a></div></div>
-    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#fb923c,#f59e0b)"></div><div class="proj-body"><div class="proj-type">Backend · EUA · Remoto</div><h3>Launch Legends APIs</h3><p>Microserviços REST escaláveis para startup americana com GoLang + PostgreSQL.</p><div class="proj-stack"><span>GoLang</span><span>PostgreSQL</span><span>PHP</span><span>Swagger</span></div><a href="https://launchlegends.io" class="proj-link" target="_blank">launchlegends.io</a></div></div>
+    
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#34d399,#10b981)"></div><div class="proj-body"><div class="proj-type">Railway · Governo</div><h3>Moz Railway</h3><p>Sistema de gestão para a rede ferroviária moçambicana em alta disponibilidade.</p><div class="proj-stack"><span>Laravel</span><span>MySQL</span><span>Docker</span><span>Nginx</span><span>GitLab CI/CD</span></div><a href="https://mzrailway.com" class="proj-link" target="_blank">mzrailway.com <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#fb923c,#f59e0b)"></div><div class="proj-body"><div class="proj-type">Backend · EUA · Remoto</div><h3>Launch Legends APIs</h3><p>Microserviços REST escaláveis para startup americana com GoLang + PostgreSQL. APIs documentadas com Swagger e testadas com Postman.</p><div class="proj-stack"><span>GoLang</span><span>PostgreSQL</span><span>PHP</span><span>Swagger</span><span>Postman</span></div><a href="https://launchlegends.io" class="proj-link" target="_blank">launchlegends.io <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
     <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#f472b6,#ec4899)"></div><div class="proj-body"><div class="proj-type">Delivery · Mobile</div><h3>Sistema de Restaurantes</h3><p>Geo-entrega com cálculo de rota. Laravel + React.js servindo app IONIC.</p><div class="proj-stack"><span>React.js</span><span>Laravel</span><span>IONIC</span><span>Geo API</span><span>MySQL</span></div></div></div>
   </div>
 </section>
@@ -411,9 +431,9 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
       <p>Cada sistema que construo parte do mesmo princípio: <strong style="color:var(--text)">recursos existem, problemas também</strong> — a engenharia é a ponte entre os dois. Seis anos, domínios diferentes, sempre o mesmo resultado.</p>
       <div class="term-live-stats">
         <div class="tls-row"><div class="tls-dot green"></div><span class="tls-label">Status</span><span class="tls-val">ONLINE · ABERTO A OPORTUNIDADES</span></div>
-        <div class="tls-row"><div class="tls-dot gold"></div><span class="tls-label">Localização</span><span class="tls-val">Beira, Moçambique 🌍</span></div>
+        <div class="tls-row"><div class="tls-dot gold"></div><span class="tls-label">Localização</span><span class="tls-val"><i class="fa-solid fa-globe"></i> Beira, Moçambique</span></div>
         <div class="tls-row"><div class="tls-dot cyan"></div><span class="tls-label">Actualmente a explorar</span><span class="tls-val">IA · Agentes · Vibe Coding</span></div>
-        <div class="tls-row"><div class="tls-dot" style="background:#a78bfa"></div><span class="tls-label">Maior conquista</span><span class="tls-val">🏆 CodeLabs 2024 — 1.º lugar</span></div>
+        <div class="tls-row"><div class="tls-dot" style="background:#a78bfa"></div><span class="tls-label">Maior conquista</span><span class="tls-val"><i class="fa-solid fa-trophy"></i> CodeLabs 2024 — 1.º lugar</span></div>
         <div class="tls-row"><div class="tls-dot" style="background:#f472b6"></div><span class="tls-label">Línguas</span><span class="tls-val">PT · EN · Changana</span></div>
       </div>
     </div>
@@ -440,13 +460,13 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
   <p class="section-eyebrow reveal">Arsenal técnico</p>
   <h2 class="sec-h2 reveal">O que trago<br>para a mesa</h2>
   <div class="skills-grid">
-    <div class="skill-group reveal" style="--group-color:#c9a84c"><div class="skill-group-label">Linguagens</div><div class="skill-pills"><span class="skill-pill">PHP</span><span class="skill-pill">GoLang</span><span class="skill-pill">Java</span><span class="skill-pill">Python</span><span class="skill-pill">JavaScript</span><span class="skill-pill">Dart</span><span class="skill-pill">C</span><span class="skill-pill">C++</span></div></div>
-    <div class="skill-group reveal" style="--group-color:#00d4ff"><div class="skill-group-label">Frameworks</div><div class="skill-pills"><span class="skill-pill">Laravel</span><span class="skill-pill">Spring Boot</span><span class="skill-pill">Node.js</span><span class="skill-pill">NestJS</span><span class="skill-pill">React.js</span><span class="skill-pill">Express.js</span><span class="skill-pill">Tailwind</span></div></div>
+    <div class="skill-group reveal" style="--group-color:#c9a84c"><div class="skill-group-label">Linguagens</div><div class="skill-pills"><span class="skill-pill">PHP</span><span class="skill-pill">GoLang</span><span class="skill-pill">Java</span><span class="skill-pill">Python</span><span class="skill-pill">JavaScript</span><span class="skill-pill">Node.js</span><span class="skill-pill">Express.js</span><span class="skill-pill">NestJS</span><span class="skill-pill">Django</span><span class="skill-pill">Dart</span><span class="skill-pill">C</span><span class="skill-pill">C++</span></div></div>
+    <div class="skill-group reveal" style="--group-color:#00d4ff"><div class="skill-group-label">Frameworks</div><div class="skill-pills"><span class="skill-pill">Laravel</span><span class="skill-pill">Spring Boot</span><span class="skill-pill">Node.js</span><span class="skill-pill">NestJS</span><span class="skill-pill">React.js</span><span class="skill-pill">Express.js</span><span class="skill-pill">Django</span><span class="skill-pill">Tailwind</span></div></div>
     <div class="skill-group reveal" style="--group-color:#a78bfa"><div class="skill-group-label">IA & Automação</div><div class="skill-pills"><span class="skill-pill">n8n</span><span class="skill-pill">RAG Pipelines</span><span class="skill-pill">OpenAI API</span><span class="skill-pill">pgvector</span><span class="skill-pill">YOLOv8n</span><span class="skill-pill">OpenCV</span><span class="skill-pill">LLM agents</span></div></div>
-    <div class="skill-group reveal" style="--group-color:#34d399"><div class="skill-group-label">DevOps & Cloud</div><div class="skill-pills"><span class="skill-pill">Docker</span><span class="skill-pill">GitHub Actions</span><span class="skill-pill">Azure DevOps</span><span class="skill-pill">Nginx</span><span class="skill-pill">Cloudflare</span><span class="skill-pill">Terraform</span><span class="skill-pill">Bash</span></div></div>
+    <div class="skill-group reveal" style="--group-color:#34d399"><div class="skill-group-label">DevOps & Cloud</div><div class="skill-pills"><span class="skill-pill">Docker</span><span class="skill-pill">GitHub Actions</span><span class="skill-pill">Azure DevOps</span><span class="skill-pill">Nginx</span><span class="skill-pill">Cloudflare</span><span class="skill-pill">Terraform</span><span class="skill-pill">Bash</span><span class="skill-pill">Swagger</span><span class="skill-pill">Postman</span></div></div>
     <div class="skill-group reveal" style="--group-color:#fb923c"><div class="skill-group-label">Bases de Dados</div><div class="skill-pills"><span class="skill-pill">MySQL</span><span class="skill-pill">PostgreSQL</span><span class="skill-pill">MongoDB</span><span class="skill-pill">Redis</span><span class="skill-pill">pgvector</span></div></div>
     <div class="skill-group reveal" style="--group-color:#f472b6"><div class="skill-group-label">Pagamentos & KYC</div><div class="skill-pills"><span class="skill-pill">M-Pesa API</span><span class="skill-pill">e-Mola</span><span class="skill-pill">Nhutchi eWallet</span><span class="skill-pill">Sumsub KYC</span><span class="skill-pill">Webhooks</span></div></div>
-    <div class="skill-group reveal" style="--group-color:#c9a84c"><div class="skill-group-label">Gestão & Processo</div><div class="skill-pills"><span class="skill-pill">Scrum Master</span><span class="skill-pill">Sprint Planning</span><span class="skill-pill">Azure Boards</span><span class="skill-pill">GitHub Projects</span></div></div>
+    <div class="skill-group reveal" style="--group-color:#c9a84c"><div class="skill-group-label">Gestão & Processo</div><div class="skill-pills"><span class="skill-pill">Scrum Master</span><span class="skill-pill">Sprint Planning</span><span class="skill-pill">Azure Boards</span><span class="skill-pill">GitHub Projects</span><span class="skill-pill">Notion</span></div></div>
     <div class="skill-group reveal" style="--group-color:#00d4ff"><div class="skill-group-label">Idiomas</div><div class="skill-pills"><span class="skill-pill">Português — Nativo</span><span class="skill-pill">Inglês — Fluente</span><span class="skill-pill">Changana — Básico</span></div></div>
   </div>
 </section>
@@ -458,10 +478,10 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
   <h2 class="reveal">Vamos <span>construir</span><br>algo juntos.</h2>
   <p class="sub reveal">Projecto, oportunidade ou conversa sobre IA — a porta está aberta.</p>
   <div class="contact-links reveal">
-    <a href="mailto:gasparcossa9@gmail.com" class="contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>gasparcossa9@gmail.com</a>
-    <a href="https://wa.me/258875434981" class="contact-link" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/></svg>+258 875 434 981</a>
-    <a href="https://linkedin.com/in/gaspar-egidio-cossa" class="contact-link" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7H10V9h4v1.5a5 5 0 0 1 4-1.5z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
-    <a href="https://github.com/Kheyssper" class="contact-link" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
+    <a href="mailto:gasparcossa9@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i>gasparcossa9@gmail.com</a>
+    <a href="https://wa.me/258875434981" class="contact-link" target="_blank"><i class="fa-brands fa-whatsapp"></i>+258 875 434 981</a>
+    <a href="https://linkedin.com/in/gaspar-egidio-cossa" class="contact-link" target="_blank"><i class="fa-brands fa-linkedin"></i>LinkedIn</a>
+    <a href="https://github.com/Kheyssper" class="contact-link" target="_blank"><i class="fa-brands fa-github"></i>GitHub</a>
   </div>
 </section>
 
@@ -679,7 +699,7 @@ document.querySelectorAll('a,.area-card,.proj-card,.contact-link,.btn,.skill-gro
     {t:'json-key',key:'  "role"',val:'"Full Stack · DevOps · IA · Scrum Master"'},
     {t:'json-key',key:'  "location"',val:'"Beira, Moçambique"'},
     {t:'json-key',key:'  "years"',val:'6'},
-    {t:'json-key',key:'  "award"',val:'"🏆 CodeLabs 2024 — 1.º Lugar"'},
+    {t:'json-key',key:'  "award"',val:'"<i class=\"fa-solid fa-trophy\"></i> CodeLabs 2024 — 1.º Lugar"'},
     {t:'json-key',key:'  "philosophy"',val:'"Transformar recursos naturais em soluções para a humanidade"'},
     {t:'json-key',key:'  "open_to_work"',val:'true'},
     {t:'json',txt:'}'},
