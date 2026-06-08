@@ -86,6 +86,20 @@ h1.hero-name .g2{display:block;color:var(--text)}
 h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw,52px);margin-bottom:60px;letter-spacing:-1px}
 .areas-track{display:flex;gap:24px;padding-bottom:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .areas-track::-webkit-scrollbar{display:none}
+/* arrows for horizontal scroll */
+.areas-wrap{position:relative}
+.areas-arrow{position:absolute;top:50%;transform:translateY(-50%);width:56px;height:56px;border-radius:12px;background:rgba(6,6,8,0.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:var(--text);border:1px solid rgba(255,255,255,.04);z-index:1200;cursor:pointer;opacity:1;transition:opacity .18s,transform .12s,box-shadow .12s}
+.areas-arrow.left{left:-20px}
+.areas-arrow.right{right:-20px}
+.areas-arrow:hover{transform:translateY(-50%) scale(1.06);box-shadow:0 8px 24px rgba(0,0,0,.6)}
+.areas-arrow i{font-size:18px;color:var(--gold)}
+.areas-wrap .areas-track{padding:18px 64px}
+@media (max-width:900px){
+  .areas-arrow{width:44px;height:44px;left:8px;right:8px;opacity:0.95}
+  .areas-arrow.left{left:8px}
+  .areas-arrow.right{right:8px}
+  .areas-wrap .areas-track{padding:12px 48px}
+}
 .area-card{flex-shrink:0;width:300px;background:var(--s1);border:1px solid var(--border);border-radius:4px;padding:36px 28px;scroll-snap-align:start;position:relative;overflow:hidden;transition:transform .3s,border-color .3s;cursor:none}
 .area-card:hover{transform:translateY(-8px);border-color:var(--card-color,var(--gold))}
 .area-card::before{content:'';position:absolute;inset:0;background:var(--card-accent,rgba(201,168,76,.04));opacity:0;transition:opacity .3s}
@@ -212,12 +226,12 @@ h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw
    CONTACT
 ══════════════════════════════════ */
 #contact{padding:100px 48px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;min-height:80vh}
-.contact-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(201,168,76,.05),transparent 70%)}
+.contact-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(201,168,76,.05),transparent 70%);pointer-events:none}
 #contact h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(40px,6vw,80px);letter-spacing:-2px;margin-bottom:16px;line-height:1}
 #contact h2 span{color:var(--gold)}
 #contact .sub{color:var(--muted);font-size:17px;max-width:480px;margin-bottom:40px;line-height:1.7}
 .contact-links{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
-.contact-link{display:flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--text);text-decoration:none;letter-spacing:.5px;border:1px solid var(--border);padding:12px 22px;border-radius:2px;transition:all .2s;cursor:none}
+.contact-link{display:flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--text);text-decoration:none;letter-spacing:.5px;border:1px solid var(--border);padding:12px 22px;border-radius:2px;transition:all .2s;cursor:pointer}
 .contact-link:hover{border-color:var(--gold);color:var(--gold)}
 .contact-link svg,.contact-link i{width:15px;height:15px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center}
 
@@ -315,7 +329,6 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
             <span id="pt-skills"></span>
           </div>
         </div>
-        <div class="orrery-label">Sistema de Competências — clique para rodar</div>
       </div>
     </div>
   </div>
@@ -323,22 +336,56 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
   <div class="hero-stats-row">
     <div class="stat"><div class="stat-num">6+</div><div class="stat-label">Anos de<br>experiência</div></div>
     <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Projetos<br>produção</div></div>
-    <div class="stat"><div class="stat-num" style="color:var(--gold)"><i class="fa-solid fa-trophy"></i></div><div class="stat-label">CodeLabs<br>2024</div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--gold)"><i class="fa-solid fa-box-open"></i></div><div class="stat-label">Soluções<br>em produção</div></div>
   </div>
   <div class="scroll-hint"><div class="scroll-line"></div><span>SCROLL</span></div>
 </section>
+
+<script>
+function initAreaScrollArrows(){
+  const track = document.querySelector('#areas .areas-track');
+  const left = document.querySelector('#areas .areas-arrow.left');
+  const right = document.querySelector('#areas .areas-arrow.right');
+  if(!track || !left || !right) return;
+
+  function update(){
+    const showLeft = track.scrollLeft > 8;
+    const showRight = track.scrollWidth - track.clientWidth - track.scrollLeft > 8;
+    left.style.opacity = showLeft ? '1' : '0';
+    right.style.opacity = showRight ? '1' : '0';
+    left.style.pointerEvents = showLeft ? 'auto' : 'none';
+    right.style.pointerEvents = showRight ? 'auto' : 'none';
+  }
+
+  right.addEventListener('click', ()=> track.scrollBy({left: track.clientWidth - 80, behavior:'smooth'}));
+  left.addEventListener('click', ()=> track.scrollBy({left: -(track.clientWidth - 80), behavior:'smooth'}));
+  track.addEventListener('scroll', update);
+  window.addEventListener('resize', update);
+  setTimeout(update,100);
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', initAreaScrollArrows);
+}else{
+  initAreaScrollArrows();
+}
+</script>
 
 <!-- ══ AREAS ══ -->
 <section id="areas">
   <p class="section-eyebrow reveal">O que faço</p>
   <h2 class="sec-h2 reveal">Domínios de actuação</h2>
-  <div class="areas-track">
+  <div class="areas-wrap">
+    <button class="areas-arrow left" aria-label="scroll left"><i class="fa-solid fa-chevron-left"></i></button>
+    <div class="areas-track">
     <div class="area-card" style="--card-color:#c9a84c;--card-accent:rgba(201,168,76,.06)"><div class="area-num">01 / 06</div><i class="area-icon fa-solid fa-code"></i><h3>Full Stack Dev</h3><p>Arquitectura e desenvolvimento de sistemas web completos — do banco de dados à interface.</p><div class="area-tags"><span class="area-tag">Laravel</span><span class="area-tag">React.js</span><span class="area-tag">GoLang</span><span class="area-tag">Spring Boot</span><span class="area-tag">MySQL</span></div></div>
-    <div class="area-card" style="--card-color:#00d4ff;--card-accent:rgba(0,212,255,.04)"><div class="area-num">02 / 06</div><i class="area-icon fa-solid fa-server"></i><h3>DevOps & Infra</h3><p>Docker, CI/CD, Linux/Windows Server, VPS, Nginx, Cloudflare, DNS/SSL, VPN. Provisioning com Forge, segurança com CCTV. Infraestrutura resiliente — diagnóstico e automação.</p><div class="area-tags"><span class="area-tag">Docker</span><span class="area-tag">GitHub Actions</span><span class="area-tag">Linux/Windows</span><span class="area-tag">VPS</span><span class="area-tag">Cloudflare</span></div></div>
-    <div class="area-card" style="--card-color:#a78bfa;--card-accent:rgba(167,139,250,.05)"><div class="area-num">03 / 06</div><i class="area-icon fa-solid fa-robot"></i><h3>IA & Automação</h3><p>Pipelines RAG, agentes autónomos, integração LLM, workflows n8n. Vibe coder que abraça o futuro.</p><div class="area-tags"><span class="area-tag">n8n</span><span class="area-tag">RAG</span><span class="area-tag">OpenAI API</span><span class="area-tag">pgvector</span><span class="area-tag">YOLOv8</span></div></div>
-    <div class="area-card" style="--card-color:#34d399;--card-accent:rgba(52,211,153,.04)"><div class="area-num">04 / 06</div><i class="area-icon fa-solid fa-credit-card"></i><h3>Fintech & Pagamentos</h3><p>M-Pesa, e-Mola, Nhutchi eWallet, KYC com Sumsub. O mercado moçambicano do futuro passa por aqui.</p><div class="area-tags"><span class="area-tag">M-Pesa API</span><span class="area-tag">e-Mola</span><span class="area-tag">Sumsub KYC</span><span class="area-tag">Webhooks</span></div></div>
+    <div class="area-card" style="--card-color:#00d4ff;--card-accent:rgba(0,212,255,.04)"><div class="area-num">02 / 06</div><i class="area-icon fa-solid fa-server"></i><h3>DevOps & Infra</h3><p>Docker, CI/CD, Linux/Windows Server, VPS, Nginx, Cloudflare, DNS/SSL, VPN. Provisioning com Forge. Infraestrutura resiliente — diagnóstico e automação.</p><div class="area-tags"><span class="area-tag">Docker</span><span class="area-tag">GitHub Actions</span><span class="area-tag">Linux/Windows</span><span class="area-tag">VPS</span><span class="area-tag">Cloudflare</span></div></div>
+    <div class="area-card" style="--card-color:#a78bfa;--card-accent:rgba(167,139,250,.05)"><div class="area-num">03 / 06</div><i class="area-icon fa-solid fa-robot"></i><h3>IA & Automação</h3><p>Pipelines RAG com n8n para fluxos aprovados por Telegram/email, antes de publicar automaticamente em redes sociais.</p><div class="area-tags"><span class="area-tag">n8n</span><span class="area-tag">RAG</span><span class="area-tag">OpenAI API</span><span class="area-tag">pgvector</span><span class="area-tag">Automação</span></div></div>
+    <div class="area-card" style="--card-color:#34d399;--card-accent:rgba(52,211,153,.04)"><div class="area-num">04 / 06</div><i class="area-icon fa-solid fa-credit-card"></i><h3>Fintech & Pagamentos</h3><p>M-Pesa, e-Mola, Nhutchi eWallet, KYC com Sumsub. O mercado moçambicano do futuro passa por aqui.</p><div class="area-tags"><span class="area-tag">M-Pesa API</span><span class="area-tag">e-Mola</span><span class="area-tag">Nhutchi</span><span class="area-tag">Sumsub</span><span class="area-tag">Webhooks</span></div></div>
     <div class="area-card" style="--card-color:#fb923c;--card-accent:rgba(251,146,60,.05)"><div class="area-num">05 / 06</div><i class="area-icon fa-solid fa-bullseye"></i><h3>Gestão de Projetos</h3><p>Scrum Master na prática. Sprint planning, Azure DevOps, Notion e coordenação de equipas.</p><div class="area-tags"><span class="area-tag">Scrum</span><span class="area-tag">Azure Boards</span><span class="area-tag">GitHub Projects</span><span class="area-tag">Notion</span></div></div>
     <div class="area-card" style="--card-color:#f472b6;--card-accent:rgba(244,114,182,.05)"><div class="area-num">06 / 06</div><i class="area-icon fa-solid fa-camera"></i><h3>Criação de Conteúdo</h3><p>Fotografia e vídeo corporativo. Olho criativo que completa o perfil técnico.</p><div class="area-tags"><span class="area-tag">Fotografia</span><span class="area-tag">Vídeo</span><span class="area-tag">Eventos</span><span class="area-tag">Corporativo</span></div></div>
+    </div>
+    <button class="areas-arrow right" aria-label="scroll right"><i class="fa-solid fa-chevron-right"></i></button>
   </div>
 </section>
 
@@ -401,18 +448,18 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
   <br>
   <div class="projects-grid">
     <div class="prize-card reveal"><div class="prize-trophy"><i class="fa-solid fa-trophy"></i></div><div class="prize-body"><h3>1.º Lugar — CodeLabs 2024</h3><p>Visão computacional para o Cornelder de Moçambique. Detecção e classificação de contentores em tempo real. Entrei sem experiência em Computer Vision. Saí em 1.º lugar.</p><div class="prize-badge">Python · OpenCV · YOLOv8n · Cornelder 2024</div></div></div>
-    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#34d399,#10b981)"></div><div class="proj-body"><div class="proj-type">Sustentabilidade · Sistema</div><h3>Consciência Ubuntu</h3><p>Plataforma de governação ambiental onde construí API, backend e lógica de sistema. O link aponta para a iniciativa e as ferramentas que suportam esse ecossistema.</p><div class="proj-stack"><span>API</span><span>Backend</span><span>Linux</span><span>Infra</span><span>Dados</span></div><a href="https://conscienciaubuntu.com/" class="proj-link" target="_blank">conscienciaubuntu.com <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#34d399,#10b981)"></div><div class="proj-body"><div class="proj-type">Sustentabilidade · Marketplace</div><h3>Consciência Ubuntu</h3><p>Plataforma onde pessoas publicam e compram artigos usando Nhutchi eWallet. Um marketplace social de impacto ambiental com pagamentos digitais moçambicanos.</p><div class="proj-stack"><span>Marketplace</span><span>Pagamentos</span><span>Nhutchi</span><span>Backend</span><span>Dados</span></div><a href="https://conscienciaubuntu.com/" class="proj-link" target="_blank">conscienciaubuntu.com <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
 
     <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#06b6d4,#0891b2)"></div><div class="proj-body"><div class="proj-type">Saúde · Mobile & Web</div><h3>Consultare</h3><p>Aplicativo móvel e web de primeiros socorros, criado por uma comunidade de médicos moçambicanos em parceria com organizações como a Equip Mozambique. Ajuda famílias a tomar decisões rápidas em emergências domésticas, com conteúdo simples, ilustrações e funcionalidade offline.</p><div class="proj-stack"><span>Mobile</span><span>Web</span><span>Offline</span><span>Ilustrações</span><span>Community</span></div><a href="https://consultare.app/" class="proj-link" target="_blank">consultare.app <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
 
     <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#f97316,#fb923c)"></div><div class="proj-body"><div class="proj-type">Impacto Social · Plataforma</div><h3>Kukura</h3><p>Plataforma/ecossistema que conecta ONGs, doadores e consultores em Moçambique. Suporta formação, verificação de impacto, conexões de financiamento e um marketplace de consultoria para fortalecer organizações sociais.</p><div class="proj-stack"><span>Marketplace</span><span>Verification</span><span>Training</span><span>Payments</span><span>Capacity</span></div><a href="https://kukura.co.mz/" class="proj-link" target="_blank">kukura.co.mz <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
 
-    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#7c3aed,#6d28d9)"></div><div class="proj-body"><div class="proj-type">Jurídico · Plataforma</div><h3>JURIS</h3><p>Plataforma de informação e serviços jurídicos em Moçambique — acesso a leis, regulamentos e documentação legal; apoio a advogados, estudantes e organizações com ferramentas de consulta e gestão documental.</p><div class="proj-stack"><span>Legal</span><span>Documentação</span><span>Pesquisa</span><span>Consultoria</span><span>Compliance</span></div><a href="https://juris.co.mz/" class="proj-link" target="_blank">juris.co.mz <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#7c3aed,#6d28d9)"></div><div class="proj-body"><div class="proj-type">Jurídico · Plataforma</div><h3>JURIS</h3><p>Plataforma jurídica moçambicana com parceria estratégica com gabinete de combate à corrupção. Ferramentas para consulta de leis, gestão documental e apoio a advogados, estudantes e organizações que exigem transparência.</p><div class="proj-stack"><span>Legal</span><span>Compliance</span><span>Pesquisa</span><span>Documentação</span><span>Transparência</span></div><a href="https://juris.co.mz/" class="proj-link" target="_blank">juris.co.mz <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
 
-    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#16a34a,#4ade80)"></div><div class="proj-body"><div class="proj-type">Agronegócio · Gestão Operacional</div><h3>FAMS</h3><p>Software/plataforma de gestão para operações agrícolas: gestão de produtores, rastreio de produção, pagamentos, relatórios e controle de operações de campo para escalar cadeias produtivas.</p><div class="proj-stack"><span>Agriculture</span><span>Supply Chain</span><span>Payments</span><span>Field Ops</span><span>Analytics</span></div><a href="https://www.fams.co.mz/" class="proj-link" target="_blank">fams.co.mz <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#16a34a,#4ade80)"></div><div class="proj-body"><div class="proj-type">Agronegócio · Gestão Operacional</div><h3>FAMS</h3><p>Plataforma de gestão agrícola já usada por empresas moçambicanas. Ajuda a organizar produtores, pagamentos, relatórios e operações de campo para escalar cadeias productivas.</p><div class="proj-stack"><span>Agronegócio</span><span>Supply Chain</span><span>Pagamentos</span><span>Operações</span><span>Analytics</span></div><a href="https://www.fams.co.mz/" class="proj-link" target="_blank">fams.co.mz <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
 
     <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#0ea5a6,#0891b2)"></div><div class="proj-body"><div class="proj-type">Logística · Despacho Aduaneiro</div><h3>Geliban</h3><p>Geliban Consultoria & Serviços de Logística — empresa moçambicana que presta despacho aduaneiro, consultoria em comércio internacional e serviços de transporte e gestão de cargas, focada em facilitar importação e exportação a partir da Beira.</p><div class="proj-stack"><span>Despacho Aduaneiro</span><span>Logística</span><span>Comércio Internacional</span><span>Consultoria</span><span>Portos</span></div><a href="https://www.geliban.com/" class="proj-link" target="_blank">geliban.com <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
-    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#c9a84c,#e8c97a)"></div><div class="proj-body"><div class="proj-type">Fintech · SaaS</div><h3>Nhutchi eWallet</h3><p>Plataforma fintech com M-Pesa, KYC Sumsub, modelo 90/10 automatizado e webhooks bidirecionais.</p><div class="proj-stack"><span>Laravel</span><span>React.js</span><span>MySQL</span><span>M-Pesa</span><span>Sumsub</span><span>Docker</span></div><a href="https://nhutchi.co.mz" class="proj-link" target="_blank">nhutchi.co.mz <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#c9a84c,#e8c97a)"></div><div class="proj-body"><div class="proj-type">Fintech · SaaS</div><h3>Nhutchi eWallet</h3><p>Fintech moçambicana da DSD Capital, Lda: e-wallet, pagamentos digitais, microcrédito e geração de renda via agentes e comissões.</p><div class="proj-stack"><span>E-Wallet</span><span>Pagamentos</span><span>Microcrédito</span><span>Agentes</span><span>Inclusão</span></div><a href="https://nhutchi.co.mz" class="proj-link" target="_blank">nhutchi.co.mz <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
     <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#a78bfa,#818cf8)"></div><div class="proj-body"><div class="proj-type">IA · Automação</div><h3>Pipeline RAG com Agente IA</h3><p>Agente autónomo que ingere livros em PDF, gera conteúdo LinkedIn e envia para aprovação por email.</p><div class="proj-stack"><span>n8n</span><span>OpenAI</span><span>pgvector</span><span>Docker</span><span>Redis</span></div></div></div>
     
     <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#34d399,#10b981)"></div><div class="proj-body"><div class="proj-type">Railway · Governo</div><h3>Moz Railway</h3><p>Sistema de gestão para a rede ferroviária moçambicana em alta disponibilidade.</p><div class="proj-stack"><span>Laravel</span><span>MySQL</span><span>Docker</span><span>Nginx</span><span>GitLab CI/CD</span></div><a href="https://mzrailway.com" class="proj-link" target="_blank">mzrailway.com <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
@@ -435,7 +482,7 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
         <div class="tls-row"><div class="tls-dot green"></div><span class="tls-label">Status</span><span class="tls-val">ONLINE · ABERTO A OPORTUNIDADES</span></div>
         <div class="tls-row"><div class="tls-dot gold"></div><span class="tls-label">Localização</span><span class="tls-val"><i class="fa-solid fa-globe"></i> Beira, Moçambique</span></div>
         <div class="tls-row"><div class="tls-dot cyan"></div><span class="tls-label">Actualmente a explorar</span><span class="tls-val">IA · Agentes · Vibe Coding</span></div>
-        <div class="tls-row"><div class="tls-dot" style="background:#a78bfa"></div><span class="tls-label">Maior conquista</span><span class="tls-val"><i class="fa-solid fa-trophy"></i> CodeLabs 2024 — 1.º lugar</span></div>
+        <div class="tls-row"><div class="tls-dot" style="background:#a78bfa"></div><span class="tls-label">Destaque</span><span class="tls-val"><i class="fa-solid fa-star"></i> Inovação em visão computacional</span></div>
         <div class="tls-row"><div class="tls-dot" style="background:#f472b6"></div><span class="tls-label">Línguas</span><span class="tls-val">PT · EN · Changana</span></div>
       </div>
     </div>
@@ -482,13 +529,13 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
   <p class="sub reveal">Projecto, oportunidade ou conversa sobre IA — a porta está aberta.</p>
   <div class="contact-links reveal">
     <a href="mailto:gasparcossa9@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i>gasparcossa9@gmail.com</a>
-    <a href="https://wa.me/258875434981" class="contact-link" target="_blank"><i class="fa-brands fa-whatsapp"></i>+258 875 434 981</a>
+    <a href="https://wa.me/258845768459" class="contact-link" target="_blank"><i class="fa-brands fa-whatsapp"></i>+258 875 434 981</a>
     <a href="https://linkedin.com/in/gaspar-egidio-cossa" class="contact-link" target="_blank"><i class="fa-brands fa-linkedin"></i>LinkedIn</a>
     <a href="https://github.com/Kheyssper" class="contact-link" target="_blank"><i class="fa-brands fa-github"></i>GitHub</a>
   </div>
 </section>
 
-<footer>© 2026 Gaspar Egídio Cossa · Beira, Moçambique · Construído com código e ambição</footer>
+<footer>© 2026 Gaspar Egídio Cossa · Beira, Moçambique · Kheyssper</footer>
 
 <script>
 /* ── CURSOR ── */
@@ -702,7 +749,7 @@ document.querySelectorAll('a,.area-card,.proj-card,.contact-link,.btn,.skill-gro
     {t:'json-key',key:'  "role"',val:'"Full Stack · DevOps · IA · Scrum Master"'},
     {t:'json-key',key:'  "location"',val:'"Beira, Moçambique"'},
     {t:'json-key',key:'  "years"',val:'6'},
-    {t:'json-key',key:'  "award"',val:'"<i class=\"fa-solid fa-trophy\"></i> CodeLabs 2024 — 1.º Lugar"'},
+    {t:'json-key',key:'  "award"',val:'"Soluções críticas entregues"'},
     {t:'json-key',key:'  "philosophy"',val:'"Transformar recursos naturais em soluções para a humanidade"'},
     {t:'json-key',key:'  "open_to_work"',val:'true'},
     {t:'json',txt:'}'},
