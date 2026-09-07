@@ -1,52 +1,33 @@
 <?php
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Método não permitido. Use POST.']);
-    exit;
+declare(strict_types=1);
+header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store');
+require_once __DIR__ . '/config.php';
+try {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Allow: POST'); http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Use POST.']); exit;
+    }
+    $nome = campo($_POST, 'nome', 255);
+    $telefone = campo($_POST, 'telefone', 50);
+    $email = campo($_POST, 'email', 255);
+    $presenca = campo($_POST, 'presenca', 3);
+    $mensagem = campo($_POST, 'mensagem', 4000);
+    $token = campo($_POST, 'submission_id', 64);
+    if ($nome === '') throw new InvalidArgumentException('Preencham o nome.');
+    if (!in_array($presenca, ['sim', 'nao'], true)) throw new InvalidArgumentException('Selecionem a presença.');
+    if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) throw new InvalidArgumentException('E-mail inválido.');
+    $acompanhantes = filter_var($_POST['acompanhantes'] ?? '0', FILTER_VALIDATE_INT, ['options' => ['min_range' => 0, 'max_range' => 20]]);
+    if ($acompanhantes === false) throw new InvalidArgumentException('Indiquem entre 0 e 20 acompanhantes.');
+    if (!preg_match('/^[a-zA-Z0-9-]{16,64}$/', $token)) throw new InvalidArgumentException('Atualizem a página e tentem novamente.');
+    echo json_encode(respostas(function (&$dados) use ($nome, $telefone, $email, $presenca, $mensagem, $acompanhantes, $token) {
+        foreach ($dados as $item) if (($item['submission_id'] ?? '') === $token) return ['success' => true];
+        $dados[] = ['id' => bin2hex(random_bytes(16)), 'submission_id' => $token, 'nome' => $nome, 'telefone' => $telefone, 'email' => $email, 'presenca' => $presenca, 'acompanhantes' => $presenca === 'sim' ? $acompanhantes : 0, 'mensagem' => $mensagem, 'data_confirmacao' => gmdate('c')];
+        return ['success' => true];
+    }, true));
+} catch (InvalidArgumentException $e) {
+    http_response_code(422); echo json_encode(['success' => false, 'message' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+} catch (Throwable $e) {
+    error_log('RSVP: ' . $e->getMessage()); http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Não foi possível guardar. Tentem novamente.'], JSON_UNESCAPED_UNICODE);
 }
-
-require_once 'config.php';
-
-$nome = limpar_dados($_POST['nome'] ?? '');
-$telefone = limpar_dados($_POST['telefone'] ?? '');
-$email = limpar_dados($_POST['email'] ?? '');
-$presenca = limpar_dados($_POST['presenca'] ?? '');
-$acompanhantes = isset($_POST['acompanhantes']) ? intval($_POST['acompanhantes']) : 0;
-$mensagem = limpar_dados($_POST['mensagem'] ?? '');
-$ip_address = $_SERVER['REMOTE_ADDR'];
-
-if (empty($nome)) {
-    echo json_encode(['success' => false, 'message' => 'Nome é obrigatório']);
-    exit;
-}
-
-if (empty($telefone)) {
-    $telefone = 'sem_telefone_' . time() . '_' . rand(1000, 9999);
-}
-
-$sql = "INSERT INTO confirmacoes (nome, telefone, email, presenca, acompanhantes, mensagem, ip_address)
-        VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-$stmt = $conn->prepare($sql);
-
-if (!$stmt) {
-    echo json_encode(['success' => false, 'message' => 'Erro ao preparar query: ' . $conn->error]);
-    exit;
-}
-
-$stmt->bind_param("ssssiss", $nome, $telefone, $email, $presenca, $acompanhantes, $mensagem, $ip_address);
-
-if ($stmt->execute()) {
-    echo json_encode(['success' => true, 'message' => 'Confirmação salva com sucesso!', 'id' => $conn->insert_id]);
-} else {
-    echo json_encode(['success' => false, 'message' => 'Erro ao salvar confirmação: ' . $stmt->error]);
-}
-
-$stmt->close();
-$conn->close();
-?>

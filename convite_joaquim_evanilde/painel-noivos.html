@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel dos Noivos · Evanilde e Joaquim</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#faf4e9;color:#142238;font:16px system-ui,sans-serif}header{background:#0e1f38;color:white;padding:24px}main{max-width:1150px;margin:32px auto;padding:0 20px}h1{font:32px Georgia,serif;margin:0}h2{font:26px Georgia,serif}button,input,select{font:inherit;padding:10px;border:1px solid #c7a05c;border-radius:4px}button{cursor:pointer;background:#1f3d6b;color:white}button:disabled{opacity:.5;cursor:wait}label{display:block;margin-bottom:8px}#login{max-width:400px;background:white;padding:28px;margin:60px auto}#login input{width:100%;margin-bottom:16px}.tools{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.stat{background:white;padding:20px;text-align:center}.stat strong{display:block;font:32px Georgia,serif;margin-bottom:8px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;background:white}th,td{text-align:left;padding:14px;border-bottom:1px solid #eee;vertical-align:top}td{white-space:pre-wrap;overflow-wrap:anywhere;max-width:300px}th{background:#f1e7d5}#status{min-height:24px;color:#9c352c}small{display:block;line-height:1.5;color:#526071} [hidden]{display:none!important}@media(max-width:650px){.stats{grid-template-columns:1fr 1fr}}
+</style>
+<header><h1>Evanilde &amp; Joaquim</h1>Painel de confirmações</header>
+<main>
+<p id="status" role="status" aria-live="polite"></p>
+<form id="login"><h2>Acesso dos noivos</h2><label for="senha">Senha</label><input id="senha" type="password" autocomplete="current-password" required><button>Entrar</button></form>
+<section id="painel" hidden>
+<div class="stats" id="stats"></div>
+<div class="tools"><input id="busca" type="search" placeholder="Nome, telefone ou email" aria-label="Pesquisar convidados"><select id="filtro" aria-label="Filtrar presença"><option value="todos">Todas as respostas</option><option value="sim">Vão</option><option value="nao">Não vão</option></select><button id="atualizar">Atualizar</button><button id="csv">Exportar CSV</button><button id="json">Guardar JSON</button><button id="sair">Sair</button></div>
+<small>Respostas recentes e exclusões podem demorar cerca de um minuto ou mais a aparecer. Use Atualizar. Os totais contam todas as respostas carregadas; as exportações respeitam a pesquisa e o filtro.</small>
+<p id="empty" hidden>Nenhuma resposta encontrada.</p>
+<div class="table-wrap"><table><thead><tr><th>Nome</th><th>Telefone</th><th>Email</th><th>Presença</th><th>Acomp.</th><th>Mensagem</th><th>Data</th><th>Ações</th></tr></thead><tbody id="rows"></tbody></table></div>
+</section>
+</main>
+<script src="rsvp-config.js"></script>
+<script src="painel-noivos.js"></script>
+</html>

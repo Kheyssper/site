@@ -856,7 +856,8 @@
       <h2>Contamos convosco</h2>
     </div>
     <p class="rsvp-note reveal">A vossa presença é o maior presente. Por favor, confirmem até 1 de Novembro de 2026.</p>
-    <form class="rsvp-card flourish-frame reveal" id="rsvpForm" method="POST" action="#" onsubmit="handleRSVP(event); return false;">
+    <noscript><p>Ativem o JavaScript no navegador para enviar a confirmação.</p></noscript>
+    <form class="rsvp-card flourish-frame reveal" id="rsvpForm" method="POST" action="#rsvp" onsubmit="handleRSVP(event); return false;">
       <div class="f-group">
         <label class="f-label" for="nome">Nome completo *</label>
         <input class="f-input" type="text" id="nome" name="nome" required placeholder="O vosso nome">
@@ -884,13 +885,7 @@
       </div>
       <div class="f-group">
         <label class="f-label" for="acompanhantes">Número de acompanhantes</label>
-        <select class="f-select" id="acompanhantes" name="acompanhantes">
-          <option value="0">Apenas eu</option>
-          <option value="1">1 acompanhante</option>
-          <option value="2">2 acompanhantes</option>
-          <option value="3">3 acompanhantes</option>
-          <option value="4">4 ou mais</option>
-        </select>
+        <input class="f-input" type="number" id="acompanhantes" name="acompanhantes" min="0" max="20" step="1" value="0" required>
       </div>
       <div class="f-group">
         <label class="f-label" for="mensagem">Mensagem para o casal (opcional)</label>
@@ -920,6 +915,7 @@
 
 <div class="toast" id="toast">Número copiado!</div>
 
+<script src="rsvp-config.js"></script>
 <script>
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1153,33 +1149,55 @@
     setInterval(tick, 1000);
   })();
 
+  const acompanhantesInput = document.getElementById('acompanhantes');
+  function atualizarAcompanhantes() {
+    acompanhantesInput.disabled = document.getElementById('nao').checked;
+    if (acompanhantesInput.disabled) acompanhantesInput.value = '0';
+  }
+  document.querySelectorAll('input[name="presenca"]').forEach(input => input.addEventListener('change', atualizarAcompanhantes));
+  atualizarAcompanhantes();
   // RSVP submit
   function handleRSVP(event) {
+    event.preventDefault();
     const form = event.target;
+    if (form.querySelector('.f-submit').disabled) return;
+    if (!form.reportValidity()) return;
+    if (!window.RSVP_API_URL) {
+      alert('A confirmação online ainda não está disponível. Por favor, tentem mais tarde.');
+      return;
+    }
+    if (!form.dataset.submissionId) {
+      const bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      form.dataset.submissionId = Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+    }
     const formData = new FormData(form);
-    if (!formData.get('nome')) { alert('Por favor, preencham o nome.'); return; }
+    formData.set('submission_id', form.dataset.submissionId);
+    if (!formData.get('nome').trim()) { alert('Por favor, preencham o nome.'); return; }
 
     const btn = form.querySelector('.f-submit');
     const original = btn.textContent;
     btn.textContent = 'A enviar...';
     btn.disabled = true;
 
-    fetch('salvar_confirmacao.php', {
+    fetch(window.RSVP_API_URL.replace(/\/$/, '') + '/confirmacoes', {
       method: 'POST',
-      body: formData,
+      body: new URLSearchParams(formData),
       headers: { 'Accept': 'application/json' },
-      credentials: 'same-origin'
+      credentials: 'omit'
     })
-      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(async r => { const data = await r.json(); if (!r.ok) throw new Error(data.message || 'Não foi possível guardar.'); return data; })
       .then(data => {
         if (data.success) {
           document.getElementById('modalBackdrop').classList.add('show');
           form.reset();
+          delete form.dataset.submissionId;
+          atualizarAcompanhantes();
         } else {
           alert('Erro ao guardar confirmação: ' + (data.message || 'tente novamente.'));
         }
       })
-      .catch(() => alert('Não foi possível enviar agora. Por favor, tentem novamente em instantes.'))
+      .catch(error => alert(error.message && !(error instanceof TypeError || error instanceof SyntaxError) ? error.message : 'Não foi possível enviar agora. Por favor, tentem novamente em instantes.'))
       .finally(() => { btn.textContent = original; btn.disabled = false; });
   }
 

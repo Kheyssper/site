@@ -1,42 +1,29 @@
 <?php
-// Configurações da base de dados
-// IMPORTANTE: alterem DB_USER e DB_PASS antes de colocar o site em produção.
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'convite_evanilde_joaquim');
-
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASS);
-
-if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error);
+declare(strict_types=1);
+define('RSVP_DATA_DIR', getenv('RSVP_DATA_DIR') ?: dirname(__DIR__) . '/private-rsvp');
+define('RSVP_PASSWORD_HASH', getenv('RSVP_PASSWORD_HASH') ?: '');
+function respostas(callable $operacao, bool $escrever = false): array {
+    if (!is_dir(RSVP_DATA_DIR) && !mkdir(RSVP_DATA_DIR, 0700, true) && !is_dir(RSVP_DATA_DIR)) throw new RuntimeException('Falha na pasta de dados.');
+    $lock = fopen(RSVP_DATA_DIR . '/confirmacoes.lock', 'c');
+    if (!$lock) throw new RuntimeException('Falha ao abrir bloqueio.');
+    try {
+        if (!flock($lock, $escrever ? LOCK_EX : LOCK_SH)) throw new RuntimeException('Falha no bloqueio.');
+        $path = RSVP_DATA_DIR . '/confirmacoes.json';
+        $dados = is_file($path) ? json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR) : [];
+        if (!is_array($dados) || !array_is_list($dados)) throw new RuntimeException('Dados inválidos.');
+        $resultado = $operacao($dados);
+        if ($escrever) {
+            $json = json_encode($dados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+            $tmp = tempnam(RSVP_DATA_DIR, 'rsvp-');
+            try {
+                if ($tmp === false || file_put_contents($tmp, $json) !== strlen($json) || !rename($tmp, $path)) throw new RuntimeException('Falha ao guardar.');
+            } finally { if ($tmp !== false && is_file($tmp)) unlink($tmp); }
+        }
+        return $resultado;
+    } finally { flock($lock, LOCK_UN); fclose($lock); }
 }
-
-$sql = "CREATE DATABASE IF NOT EXISTS " . DB_NAME;
-$conn->query($sql);
-$conn->select_db(DB_NAME);
-
-$sql = "CREATE TABLE IF NOT EXISTS confirmacoes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    telefone VARCHAR(50) NOT NULL,
-    email VARCHAR(255),
-    presenca ENUM('sim', 'nao') NOT NULL,
-    acompanhantes INT DEFAULT 0,
-    mensagem TEXT,
-    data_confirmacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    ip_address VARCHAR(45)
-)";
-
-$conn->query($sql);
-
-function limpar_dados($dados) {
-    global $conn;
-    $dados = trim($dados);
-    $dados = stripslashes($dados);
-    $dados = htmlspecialchars($dados);
-    return $conn->real_escape_string($dados);
+function campo(array $entrada, string $nome, int $limite): string {
+    $valor = $entrada[$nome] ?? '';
+    if (!is_string($valor) || strlen($valor) > $limite) throw new InvalidArgumentException('Campo inválido: ' . $nome);
+    return trim($valor);
 }
-
-$conn->set_charset("utf8mb4");
-?>

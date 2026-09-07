@@ -1,47 +1,73 @@
 <?php
-session_start();
-
-// IMPORTANTE: alterem esta senha antes de partilhar o painel.
-$senha_correta = 'evanilde-joaquim-2026';
-
-if (isset($_POST['senha'])) {
-    if ($_POST['senha'] === $senha_correta) {
-        $_SESSION['painel_autenticado'] = true;
-    } else {
-        $erro_login = 'Senha incorreta.';
+require_once __DIR__ . '/config.php';
+session_name('joaquim_evanilde');
+session_start(['cookie_httponly' => true, 'cookie_samesite' => 'Strict', 'cookie_secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off']);
+header('Cache-Control: no-store');
+$_SESSION['csrf'] ??= bin2hex(random_bytes(32));
+$erro_login = RSVP_PASSWORD_HASH === '' ? 'Configure a senha do painel no servidor (RSVP_PASSWORD_HASH).' : '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!is_string($_POST['csrf'] ?? null) || !hash_equals($_SESSION['csrf'], $_POST['csrf'])) {
+        http_response_code(403); exit('Pedido inválido. Atualize a página.');
+    }
+    if (isset($_POST['senha']) && is_string($_POST['senha'])) {
+        if (time() < ($_SESSION['login_after'] ?? 0)) {
+            $erro_login = 'Aguarde alguns segundos antes de tentar novamente.';
+        } elseif (RSVP_PASSWORD_HASH !== '' && password_verify($_POST['senha'], RSVP_PASSWORD_HASH)) {
+            session_regenerate_id(true);
+            $_SESSION['painel_autenticado'] = true;
+            header('Location: painel-noivos.php'); exit;
+        } else {
+            $_SESSION['login_after'] = time() + 3;
+            $erro_login = 'Senha incorreta.';
+        }
+    }
+    if (isset($_POST['sair'])) {
+        $_SESSION = []; session_destroy(); header('Location: painel-noivos.php'); exit;
     }
 }
-
-if (isset($_GET['sair'])) {
-    session_destroy();
-    header('Location: painel-noivos.php');
-    exit;
-}
-
-$autenticado = isset($_SESSION['painel_autenticado']) && $_SESSION['painel_autenticado'] === true;
-
+$autenticado = ($_SESSION['painel_autenticado'] ?? false) === true;
+$erro_dados = '';
 if ($autenticado) {
-    require_once 'config.php';
-
-    $filtro = $_GET['filtro'] ?? 'todos';
-    $sql = "SELECT * FROM confirmacoes WHERE 1=1";
-    if ($filtro === 'confirmados') $sql .= " AND presenca = 'sim'";
-    if ($filtro === 'nao-confirmados') $sql .= " AND presenca = 'nao'";
-    $sql .= " ORDER BY data_confirmacao DESC";
-
-    $result = $conn->query($sql);
+    $filtro = is_string($_GET['filtro'] ?? null) ? $_GET['filtro'] : 'todos';
+    $busca = is_string($_GET['busca'] ?? null) ? trim($_GET['busca']) : '';
+    $stats = ['total'=>0, 'confirmados'=>0, 'nao_confirmados'=>0, 'total_pessoas'=>0];
     $confirmacoes = [];
-    while ($result && $row = $result->fetch_assoc()) $confirmacoes[] = $row;
-
-    $stats_sql = "SELECT COUNT(*) as total,
-        SUM(CASE WHEN presenca='sim' THEN 1 ELSE 0 END) as confirmados,
-        SUM(CASE WHEN presenca='nao' THEN 1 ELSE 0 END) as nao_confirmados,
-        SUM(CASE WHEN presenca='sim' THEN (1+IFNULL(acompanhantes,0)) ELSE 0 END) as total_pessoas
-        FROM confirmacoes";
-    $stats_result = $conn->query($stats_sql);
-    $stats = $stats_result ? $stats_result->fetch_assoc() : ['total'=>0,'confirmados'=>0,'nao_confirmados'=>0,'total_pessoas'=>0];
-
-    $conn->close();
+    try {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir'])) {
+            $id = campo($_POST, 'excluir', 64);
+            respostas(function (&$dados) use ($id) {
+                $dados = array_values(array_filter($dados, fn($c) => $c['id'] !== $id)); return [];
+            }, true);
+            header('Location: painel-noivos.php'); exit;
+        }
+        $todos = respostas(fn($dados) => $dados);
+        foreach ($todos as $c) {
+            $stats['total']++;
+            $stats[$c['presenca'] === 'sim' ? 'confirmados' : 'nao_confirmados']++;
+            if ($c['presenca'] === 'sim') $stats['total_pessoas'] += 1 + $c['acompanhantes'];
+        }
+        $confirmacoes = array_values(array_filter($todos, fn($c) =>
+            ($filtro !== 'confirmados' || $c['presenca'] === 'sim') &&
+            ($filtro !== 'nao-confirmados' || $c['presenca'] === 'nao') &&
+            ($busca === '' || stripos($c['nome'] . ' ' . $c['telefone'] . ' ' . $c['email'], $busca) !== false)
+        ));
+        usort($confirmacoes, fn($a, $b) => strcmp($b['data_confirmacao'], $a['data_confirmacao']));
+        if (isset($_GET['exportar'])) {
+            header('Content-Type: text/csv; charset=utf-8');
+            header('Content-Disposition: attachment; filename="confirmacoes.csv"');
+            $out = fopen('php://output', 'w'); fwrite($out, "\xEF\xBB\xBF");
+            fputcsv($out, ['Nome', 'Telefone', 'Email', 'Presença', 'Acompanhantes', 'Mensagem', 'Data'], ';');
+            foreach ($confirmacoes as $c) {
+                $row = [$c['nome'], $c['telefone'], $c['email'], $c['presenca'], $c['acompanhantes'], $c['mensagem'], $c['data_confirmacao']];
+                $row = array_map(fn($v) => preg_match('/^[\s]*[=+@-]/u', (string)$v) ? "'" . $v : $v, $row);
+                fputcsv($out, $row, ';');
+            }
+            fclose($out); exit;
+        }
+    } catch (Throwable $e) {
+        error_log('Painel RSVP: ' . $e->getMessage());
+        $erro_dados = 'Não foi possível carregar ou alterar as respostas. Tente novamente.';
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -81,7 +107,7 @@ if ($autenticado) {
   .stat .num{ font-family:'Cormorant Garamond',serif; font-size:2.2rem; color:var(--sapphire); }
   .stat .lbl{ font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--clay); margin-top:0.3rem; }
 
-  .filters{ margin-bottom:1.2rem; display:flex; gap:0.6rem; }
+  .filters{ flex-wrap:wrap; margin-bottom:1.2rem; display:flex; gap:0.6rem; }
   .filters a{ padding:0.5rem 1rem; border:1px solid #D8CFC0; text-decoration:none; color:var(--ink); font-size:0.82rem; }
   .filters a.active{ background:var(--sapphire); color:#fff; border-color:var(--sapphire); }
 
@@ -108,7 +134,7 @@ if ($autenticado) {
       <h1>Painel dos Noivos</h1>
       <p>Evanilde &amp; Joaquim &middot; acesso restrito</p>
       <?php if (!empty($erro_login)): ?><div class="erro"><?= htmlspecialchars($erro_login) ?></div><?php endif; ?>
-      <form method="POST">
+      <form method="POST"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
         <input type="password" name="senha" placeholder="Senha" required autofocus>
         <button type="submit">Entrar</button>
       </form>
@@ -117,7 +143,7 @@ if ($autenticado) {
 <?php else: ?>
   <div class="topbar">
     <span class="brand">Painel &middot; Evanilde &amp; Joaquim</span>
-    <a href="?sair=1">Sair</a>
+    <form method="POST"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf']) ?>"><button name="sair" value="1">Sair</button></form>
   </div>
   <main>
     <div class="stats">
@@ -127,6 +153,13 @@ if ($autenticado) {
       <div class="stat"><div class="num"><?= (int)$stats['total_pessoas'] ?></div><div class="lbl">Pessoas no total</div></div>
     </div>
 
+    <?php if ($erro_dados): ?><p class="erro" role="alert"><?= htmlspecialchars($erro_dados) ?></p><?php endif; ?>
+    <form method="GET" style="margin-bottom:1rem;display:flex;gap:.5rem;flex-wrap:wrap">
+      <input type="hidden" name="filtro" value="<?= htmlspecialchars($filtro) ?>">
+      <input name="busca" aria-label="Pesquisar nome, telefone ou email" placeholder="Nome, telefone ou email" value="<?= htmlspecialchars($busca) ?>">
+      <button>Pesquisar</button><button name="exportar" value="1">Exportar CSV</button>
+      <a href="painel-noivos.php">Atualizar / limpar pesquisa</a>
+    </form>
     <div class="filters">
       <a href="?filtro=todos" class="<?= $filtro==='todos'?'active':'' ?>">Todos</a>
       <a href="?filtro=confirmados" class="<?= $filtro==='confirmados'?'active':'' ?>">Confirmados</a>
@@ -134,21 +167,26 @@ if ($autenticado) {
     </div>
 
     <?php if (empty($confirmacoes)): ?>
-      <div class="empty">Ainda não há confirmações.</div>
+      <div class="empty">Nenhuma resposta encontrada.</div>
     <?php else: ?>
       <table>
         <thead>
-          <tr><th>Nome</th><th>Telefone</th><th>Presença</th><th>Acomp.</th><th>Mensagem</th><th>Data</th></tr>
+          <tr><th>Nome</th><th>Telefone</th><th>Email</th><th>Presença</th><th>Acomp.</th><th>Mensagem</th><th>Data (UTC)</th><th>Ações</th></tr>
         </thead>
         <tbody>
           <?php foreach ($confirmacoes as $c): ?>
           <tr>
             <td><?= htmlspecialchars($c['nome']) ?></td>
             <td><?= htmlspecialchars(strpos($c['telefone'], 'sem_telefone_') === 0 ? '—' : $c['telefone']) ?></td>
-            <td><span class="tag <?= $c['presenca'] ?>"><?= $c['presenca'] === 'sim' ? 'Vai' : 'Não vai' ?></span></td>
+            <td><?= htmlspecialchars($c['email']) ?></td>
+            <td><span class="tag <?= $c['presenca'] === 'sim' ? 'sim' : 'nao' ?>"><?= $c['presenca'] === 'sim' ? 'Vai' : 'Não vai' ?></span></td>
             <td><?= (int)$c['acompanhantes'] ?></td>
             <td><?= htmlspecialchars($c['mensagem']) ?></td>
             <td><?= htmlspecialchars($c['data_confirmacao']) ?></td>
+            <td><form method="POST" onsubmit="return confirm('Excluir esta resposta? Esta ação não pode ser desfeita.');">
+              <input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf']) ?>">
+              <button name="excluir" value="<?= htmlspecialchars($c['id']) ?>">Excluir</button>
+            </form></td>
           </tr>
           <?php endforeach; ?>
         </tbody>
