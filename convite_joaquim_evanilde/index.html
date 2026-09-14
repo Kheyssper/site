@@ -10,9 +10,15 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Evanilde & Joaquim - Casamento 28 de Novembro de 2026">
 <meta property="og:description" content="28 de Novembro de 2026, Oasis Garden, Macuti. Confirmem a vossa presenca no nosso convite digital.">
-<meta property="og:image" content="https://kheyssper.site/convite_joaquim_evanilde/img/evanilde-e-joaquim-de-maos-dadas-macuti.jpg">
+<meta property="og:image" content="https://kheyssper.site/convite_joaquim_evanilde/img/share-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:url" content="https://kheyssper.site/convite_joaquim_evanilde/">
-<meta name="twitter:card" content="summary_large_image"><link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kheyssper.site/convite_joaquim_evanilde/img/share-card.jpg">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rough.js/2.1.1/rough.umd.min.js"></script>
@@ -553,9 +559,103 @@
     .pay-card{ flex-direction: column; align-items: stretch; text-align: center; }
     .pay-info{ text-align: center; }
   }
+
+  /* ============ ENVELOPE OPENING OVERLAY ============ */
+  .envelope-overlay{
+    position: fixed; inset: 0; z-index: 3000;
+    background: radial-gradient(ellipse at center, #17314F 0%, var(--sapphire-2) 68%);
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .envelope-overlay.opening{
+    opacity: 0;
+    transform: scale(1.06);
+    pointer-events: none;
+  }
+  .envelope-seal{
+    background: none; border: none; padding: 0; margin: 0; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 1.7rem;
+    color: var(--gold-soft);
+    font-family: var(--font-body);
+  }
+  .envelope-seal-media{
+    position: relative; display: block;
+    width: clamp(150px, 32vw, 225px);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.6s ease;
+  }
+  .envelope-seal:hover .envelope-seal-media{ transform: scale(1.04); }
+  .envelope-seal:active .envelope-seal-media{ transform: scale(0.97); }
+  .envelope-seal img{
+    width: 100%; height: auto; display: block; position: relative; z-index: 1;
+    filter: drop-shadow(0 14px 34px rgba(0,0,0,0.5));
+  }
+  .envelope-ring{
+    position: absolute; inset: -5%; border-radius: 50%;
+    border: 1px solid rgba(199,160,92,0.55);
+    opacity: 0; pointer-events: none;
+  }
+  .envelope-hint{
+    font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase; font-weight: 500;
+    display: flex; align-items: center; gap: 0.9rem;
+  }
+  .envelope-hint::before, .envelope-hint::after{
+    content: ''; width: 26px; height: 1px; background: rgba(199,160,92,0.6);
+  }
+  .envelope-overlay.opening .envelope-seal-media{
+    animation: none; transform: scale(1.22); opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease;
+  }
+  .envelope-overlay.opening .envelope-hint{ animation: none; opacity: 0; transition: opacity 0.25s ease; }
+
+  @media (prefers-reduced-motion: no-preference){
+    .envelope-ring{ animation: sealRing 3.2s ease-out infinite; }
+    .envelope-ring--delay{ animation-delay: 1.6s; }
+    @keyframes sealRing{
+      0%   { transform: scale(0.94); opacity: 0; }
+      18%  { opacity: 0.7; }
+      100% { transform: scale(1.38); opacity: 0; }
+    }
+    .envelope-seal-media{ animation: sealIn 0.9s cubic-bezier(0.22,1,0.36,1) backwards; }
+    @keyframes sealIn{ from{ opacity:0; transform: scale(0.86); } to{ opacity:1; transform: scale(1); } }
+    .envelope-hint{
+      animation: hintIn 0.7s ease 0.5s both, hintBreathe 2.6s ease-in-out 1.2s infinite;
+    }
+    @keyframes hintIn{ from{ opacity:0; transform: translateY(8px); } to{ opacity:1; transform: translateY(0); } }
+    @keyframes hintBreathe{ 0%,100%{ opacity: 1; } 50%{ opacity: 0.55; } }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .envelope-overlay{ transition: none; }
+  }
+
+  /* While the envelope is closed, hold the hero entrance so it plays right after the seal is opened */
+  html:not(.envelope-pending) .envelope-overlay:not(.opening){ display: none; }
+  .envelope-pending .hero-img,
+  .envelope-pending .hero-theme,
+  .envelope-pending .hero-names,
+  .envelope-pending .hero-names .amp,
+  .envelope-pending .hero-meta{ animation: none; }
 </style>
+<script>
+  (function () {
+    var opened = false;
+    try { opened = sessionStorage.getItem('envelopeOpened') === '1'; } catch (e) {}
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!opened && !reduce) document.documentElement.classList.add('envelope-pending');
+  })();
+</script>
 </head>
 <body>
+
+<div class="envelope-overlay" id="envelopeOverlay">
+  <button type="button" class="envelope-seal" id="envelopeSeal" aria-label="Abrir convite">
+    <span class="envelope-seal-media">
+      <span class="envelope-ring" aria-hidden="true"></span>
+      <span class="envelope-ring envelope-ring--delay" aria-hidden="true"></span>
+      <img src="img/selo-abertura.png" alt="" loading="eager" decoding="async">
+    </span>
+    <span class="envelope-hint" aria-hidden="true">Toque para abrir</span>
+  </button>
+</div>
 
 <script type="application/ld+json">
 {
@@ -1061,6 +1161,34 @@
     });
   })();
 
+  // Envelope opening: shown once per session, skipped under prefers-reduced-motion
+  // (decided in <head> via the `envelope-pending` class). Opening the seal releases
+  // the held hero entrance and starts the music in the same click.
+  (function () {
+    const root = document.documentElement;
+    const overlay = document.getElementById('envelopeOverlay');
+    if (!overlay) return;
+    if (!root.classList.contains('envelope-pending')) { overlay.remove(); return; }
+
+    document.body.style.overflow = 'hidden';
+
+    document.getElementById('envelopeSeal').addEventListener('click', () => {
+      try { sessionStorage.setItem('envelopeOpened', '1'); } catch (e) {}
+      document.body.style.overflow = '';
+      overlay.classList.add('opening');
+      root.classList.remove('envelope-pending');
+      document.dispatchEvent(new CustomEvent('invite:open'));
+
+      let removed = false;
+      const finish = () => { if (removed) return; removed = true; overlay.remove(); };
+      // child transitions bubble up here too, so only the overlay's own fade counts
+      overlay.addEventListener('transitionend', (e) => {
+        if (e.target === overlay && e.propertyName === 'opacity') finish();
+      });
+      setTimeout(finish, 1000);
+    }, { once: true });
+  })();
+
   // FAB visibility after hero
   const fab = document.getElementById('fab');
   const heroObserver = new IntersectionObserver((entries) => {
@@ -1073,7 +1201,8 @@
   (function () {
     const audio = document.getElementById('bgMusic');
     const btn = document.getElementById('musicFab');
-    audio.volume = 0.4;
+    const VOLUME = 0.4;
+    audio.volume = VOLUME;
     btn.classList.add('show');
 
     function setPlayingUI(isPlaying) {
@@ -1084,14 +1213,34 @@
       audio.play().then(() => setPlayingUI(true)).catch(() => setPlayingUI(false));
     }
 
-    attemptPlay();
+    // Starts silent and swells to VOLUME alongside the hero entrance.
+    function playWithSwell() {
+      audio.volume = 0;
+      audio.play().then(() => {
+        setPlayingUI(true);
+        const start = performance.now();
+        const step = (now) => {
+          const t = Math.min(1, (now - start) / 1800);
+          audio.volume = VOLUME * t;
+          if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }).catch(() => { audio.volume = VOLUME; setPlayingUI(false); });
+    }
 
-    ['click', 'touchstart', 'keydown', 'scroll'].forEach(evt => {
-      document.addEventListener(evt, function onFirstInteract() {
-        if (audio.paused) attemptPlay();
-        document.removeEventListener(evt, onFirstInteract);
-      }, { once: true, passive: true });
-    });
+    if (document.documentElement.classList.contains('envelope-pending')) {
+      // buffer while the guest looks at the seal, so the sound lands with the click
+      audio.preload = 'auto';
+      audio.load();
+      document.addEventListener('invite:open', playWithSwell, { once: true });
+    } else {
+      attemptPlay();
+      ['click', 'touchstart', 'keydown', 'scroll'].forEach(evt => {
+        document.addEventListener(evt, function onFirstInteract() {
+          if (audio.paused) attemptPlay();
+        }, { once: true, passive: true });
+      });
+    }
 
     btn.addEventListener('click', () => {
       if (audio.paused) { attemptPlay(); } else { audio.pause(); setPlayingUI(false); }
