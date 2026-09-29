@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gaspar Cossa — Full Stack · DevOps · AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -15,7 +16,7 @@
   --text:#f0ede8;--muted:#5a5a72;--dim:#2a2a3e;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body{background:var(--bg);color:var(--text);font-family:'Libre Baskerville',Georgia,serif;font-weight:300;overflow-x:hidden;cursor:none}
 
 /* ── CURSOR ── */
 #cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:difference}
@@ -26,12 +27,12 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:rgba(6,6,8,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:500}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--gold);letter-spacing:1px;text-decoration:none}
+.logo{font-family:'Libre Baskerville',Georgia,serif;font-weight:800;font-size:18px;color:var(--gold);letter-spacing:1px;text-decoration:none}
 .nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:'Space Mono',monospace;transition:color .2s}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:'Libre Baskerville',Georgia,serif;transition:color .2s}
 .nav-links a:hover{color:var(--gold)}
-.nav-badge{font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);border:1px solid var(--gold);padding:4px 12px;border-radius:2px;opacity:.7}
-.lang-switch{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);border:1px solid var(--border);padding:8px 14px;border-radius:2px;background:transparent;cursor:pointer;transition:all .2s;margin-left:12px}
+.nav-badge{font-family:'Libre Baskerville',Georgia,serif;font-size:11px;color:var(--gold);border:1px solid var(--gold);padding:4px 12px;border-radius:2px;opacity:.7}
+.lang-switch{font-family:'Libre Baskerville',Georgia,serif;font-size:11px;color:var(--muted);border:1px solid var(--border);padding:8px 14px;border-radius:2px;background:transparent;cursor:pointer;transition:all .2s;margin-left:12px}
 .lang-switch:hover{border-color:var(--gold);color:var(--gold)}
 
 /* ══════════════════════════════════
@@ -43,20 +44,20 @@ nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-
 
 .hero-split{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%;max-width:1300px}
 
-.hero-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(0,212,255,.3);padding:6px 16px;border-radius:2px;margin-bottom:32px;animation:fadeUp .5s .1s both}
+.hero-tag{display:inline-block;font-family:'Libre Baskerville',Georgia,serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(0,212,255,.3);padding:6px 16px;border-radius:2px;margin-bottom:32px;animation:fadeUp .5s .1s both}
 .hero-tag::before{content:'> ';opacity:.5}
-h1.hero-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(52px,6.5vw,96px);line-height:.95;letter-spacing:-3px;margin-bottom:8px;animation:fadeUp .6s .3s both}
+h1.hero-name{font-family:'Libre Baskerville',Georgia,serif;font-weight:800;font-size:clamp(48px,6vw,88px);line-height:1;letter-spacing:-2px;margin-bottom:8px;animation:fadeUp .6s .3s both}
 h1.hero-name .g1{display:block;background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 40%,#fff 70%,var(--gold2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% auto;animation:shimmer 4s linear infinite}
 h1.hero-name .g2{display:block;color:var(--text)}
 @keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
-.hero-title-row{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:1px;margin-bottom:24px;animation:fadeUp .6s .5s both;line-height:2}
+.hero-title-row{font-family:'Libre Baskerville',Georgia,serif;font-size:12px;color:var(--muted);letter-spacing:1px;margin-bottom:24px;animation:fadeUp .6s .5s both;line-height:2}
 .hero-title-row span{color:var(--gold);opacity:.8}
 .hero-title-row span::before{content:' · '}
-.hero-maxim{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;color:var(--gold);opacity:.55;text-transform:uppercase;border-left:2px solid var(--gold);padding-left:12px;margin-bottom:28px;line-height:1.6;animation:fadeUp .6s .55s both}
+.hero-maxim{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:12px;letter-spacing:1px;color:var(--gold);opacity:.55;text-transform:uppercase;border-left:2px solid var(--gold);padding-left:12px;margin-bottom:28px;line-height:1.6;animation:fadeUp .6s .55s both}
 .hero-desc{font-size:16px;color:var(--muted);max-width:480px;line-height:1.8;margin-bottom:44px;animation:fadeUp .6s .65s both}
 .hero-desc strong{color:var(--text);font-weight:400}
 .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;animation:fadeUp .6s .8s both}
-.btn{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;padding:14px 28px;border-radius:2px;text-decoration:none;cursor:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn{font-family:'Libre Baskerville',Georgia,serif;font-size:12px;letter-spacing:1px;padding:14px 28px;border-radius:2px;text-decoration:none;cursor:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
 .btn-gold{background:var(--gold);color:#060608;border:none;font-weight:700}
 .btn-gold:hover{background:var(--gold2);transform:translateY(-3px)}
 .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
@@ -66,17 +67,17 @@ h1.hero-name .g2{display:block;color:var(--text)}
 .hero-right{display:flex;align-items:center;justify-content:center;animation:fadeUp .8s .6s both}
 .orrery-wrap{position:relative;width:420px;height:420px}
 #orrery-canvas{width:100%;height:100%;cursor:none;display:block}
-.orrery-hint{position:absolute;top:-36px;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;white-space:nowrap;opacity:.6}
-.orrery-label{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;white-space:nowrap}
-.planet-tip{position:absolute;background:var(--s1);border:1px solid var(--gold);color:var(--text);font-family:'Space Mono',monospace;font-size:10px;padding:8px 14px;border-radius:2px;pointer-events:none;white-space:nowrap;opacity:0;transition:opacity .15s;letter-spacing:.5px;top:0;left:0;z-index:10;line-height:1.6}
+.orrery-hint{position:absolute;top:-36px;left:50%;transform:translateX(-50%);font-family:'Libre Baskerville',Georgia,serif;font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;white-space:nowrap;opacity:.6}
+.orrery-label{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);font-family:'Libre Baskerville',Georgia,serif;font-size:10px;color:var(--muted);letter-spacing:2px;white-space:nowrap}
+.planet-tip{position:absolute;background:var(--s1);border:1px solid var(--gold);color:var(--text);font-family:'Libre Baskerville',Georgia,serif;font-size:10px;padding:8px 14px;border-radius:2px;pointer-events:none;white-space:nowrap;opacity:0;transition:opacity .15s;letter-spacing:.5px;top:0;left:0;z-index:10;line-height:1.6}
 .planet-tip .pt-name{color:var(--gold);font-size:11px;font-weight:700;display:block;margin-bottom:2px}
 
 /* hero stats */
 .hero-stats-row{position:absolute;bottom:48px;right:48px;display:flex;gap:40px;z-index:2;animation:fadeUp .6s 1s both}
 .stat{text-align:right}
-.stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:38px;color:var(--gold);line-height:1}
-.stat-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
-.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;animation:fadeUp .5s 1.5s both}
+.stat-num{font-family:'Libre Baskerville',Georgia,serif;font-weight:800;font-size:38px;color:var(--gold);line-height:1}
+.stat-label{font-family:'Libre Baskerville',Georgia,serif;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'Libre Baskerville',Georgia,serif;font-size:10px;color:var(--muted);letter-spacing:2px;animation:fadeUp .5s 1.5s both}
 .scroll-line{width:1px;height:48px;background:linear-gradient(var(--gold),transparent);animation:scrollDrop 2s ease-in-out infinite}
 @keyframes scrollDrop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
@@ -84,8 +85,8 @@ h1.hero-name .g2{display:block;color:var(--text)}
    AREAS
 ══════════════════════════════════ */
 #areas{padding:100px 48px;position:relative}
-.section-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
-h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw,52px);margin-bottom:60px;letter-spacing:-1px}
+.section-eyebrow{font-family:'Libre Baskerville',Georgia,serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+h2.sec-h2{font-family:'Libre Baskerville',Georgia,serif;font-weight:800;font-size:clamp(36px,4vw,52px);margin-bottom:60px;letter-spacing:-1px}
 .areas-track{display:flex;gap:24px;padding-bottom:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .areas-track::-webkit-scrollbar{display:none}
 /* arrows for horizontal scroll */
@@ -106,12 +107,12 @@ h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw
 .area-card:hover{transform:translateY(-8px);border-color:var(--card-color,var(--gold))}
 .area-card::before{content:'';position:absolute;inset:0;background:var(--card-accent,rgba(201,168,76,.04));opacity:0;transition:opacity .3s}
 .area-card:hover::before{opacity:1}
-.area-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:2px;margin-bottom:20px}
+.area-num{font-family:'Libre Baskerville',Georgia,serif;font-size:11px;color:var(--muted);letter-spacing:2px;margin-bottom:20px}
 .area-icon{font-size:28px;margin-bottom:16px;display:block}
-.area-card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:20px;margin-bottom:10px;color:var(--card-color,var(--gold))}
+.area-card h3{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:20px;margin-bottom:10px;color:var(--card-color,var(--gold))}
 .area-card p{color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:20px}
 .area-tags{display:flex;flex-wrap:wrap;gap:5px}
-.area-tag{font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border-radius:2px;border:1px solid var(--dim);color:var(--muted);letter-spacing:.5px}
+.area-tag{font-family:'Libre Baskerville',Georgia,serif;font-size:9px;padding:3px 8px;border-radius:2px;border:1px solid var(--dim);color:var(--muted);letter-spacing:.5px}
 .area-card:hover .area-tag{border-color:var(--card-color,var(--gold));color:var(--card-color,var(--gold));opacity:.6}
 
 /* ══════════════════════════════════
@@ -124,9 +125,9 @@ h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw
 .tl-item{position:relative;padding-left:48px;margin-bottom:56px;opacity:0;transform:translateX(-20px);transition:opacity .6s,transform .6s}
 .tl-item.visible{opacity:1;transform:none}
 .tl-dot{position:absolute;left:-5px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--dot-color,var(--gold));box-shadow:0 0 16px var(--dot-color,var(--gold))}
-.tl-date{font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:2px;margin-bottom:6px}
-.tl-company{font-family:'Syne',sans-serif;font-weight:700;font-size:20px;margin-bottom:4px}
-.tl-role{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:14px;letter-spacing:.5px}
+.tl-date{font-family:'Libre Baskerville',Georgia,serif;font-size:11px;color:var(--gold);letter-spacing:2px;margin-bottom:6px}
+.tl-company{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:20px;margin-bottom:4px}
+.tl-role{font-family:'Libre Baskerville',Georgia,serif;font-size:11px;color:var(--muted);margin-bottom:14px;letter-spacing:.5px}
 .tl-points{list-style:none;display:flex;flex-direction:column;gap:7px}
 .tl-points li{font-size:13px;color:var(--muted);padding-left:14px;position:relative;line-height:1.6}
 .tl-points li::before{content:'›';position:absolute;left:0;color:var(--dot-color,var(--gold));font-size:16px;line-height:1.2}
@@ -134,21 +135,21 @@ h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw
 /* ── RADAR WIDGET (timeline right column) ── */
 .tl-right-panel{position:sticky;top:120px;display:flex;flex-direction:column;gap:20px}
 .radar-card{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:24px;display:flex;flex-direction:column;align-items:center}
-.radar-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;align-self:flex-start;display:flex;align-items:center;gap:8px}
+.radar-label{font-family:'Libre Baskerville',Georgia,serif;font-size:10px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;align-self:flex-start;display:flex;align-items:center;gap:8px}
 .radar-label::before{content:'';width:12px;height:1px;background:var(--gold)}
 #radar-canvas{display:block;cursor:none}
 .radar-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;width:100%}
-.radar-leg-item{display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.5px}
+.radar-leg-item{display:flex;align-items:center;gap:5px;font-family:'Libre Baskerville',Georgia,serif;font-size:9px;color:var(--muted);letter-spacing:.5px}
 .radar-leg-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 
 /* stack bar card */
 .stack-card{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:24px}
-.stack-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.stack-label{font-family:'Libre Baskerville',Georgia,serif;font-size:10px;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .stack-label::before{content:'';width:12px;height:1px;background:var(--cyan)}
 .stack-item{margin-bottom:10px}
 .stack-item-row{display:flex;justify-content:space-between;margin-bottom:4px}
-.stack-item-name{font-family:'Space Mono',monospace;font-size:10px;color:var(--text)}
-.stack-item-pct{font-family:'Space Mono',monospace;font-size:10px;color:var(--gold)}
+.stack-item-name{font-family:'Libre Baskerville',Georgia,serif;font-size:10px;color:var(--text)}
+.stack-item-pct{font-family:'Libre Baskerville',Georgia,serif;font-size:10px;color:var(--gold)}
 .stack-bar{height:2px;background:var(--dim);border-radius:0}
 .stack-fill{height:100%;border-radius:0;width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
 
@@ -159,7 +160,7 @@ h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw
 .term-inner{display:grid;grid-template-columns:1fr 1fr;min-height:520px}
 .term-left{padding:60px 48px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border)}
 .term-left .section-eyebrow{margin-bottom:16px}
-.term-left h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,3vw,42px);margin-bottom:20px;letter-spacing:-1px}
+.term-left h2{font-family:'Libre Baskerville',Georgia,serif;font-weight:800;font-size:clamp(28px,3vw,42px);margin-bottom:20px;letter-spacing:-1px}
 .term-left p{color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:28px}
 .term-live-stats{display:flex;flex-direction:column;gap:10px}
 .tls-row{display:flex;align-items:center;gap:12px}
@@ -168,8 +169,8 @@ h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw
 .tls-dot.gold{background:var(--gold)}
 .tls-dot.cyan{background:var(--cyan)}
 @keyframes tls-pulse{0%,100%{opacity:1;box-shadow:0 0 6px var(--green)}50%{opacity:.5;box-shadow:none}}
-.tls-label{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.5px}
-.tls-val{font-family:'Space Mono',monospace;font-size:11px;color:var(--text);margin-left:auto}
+.tls-label{font-family:'Libre Baskerville',Georgia,serif;font-size:11px;color:var(--muted);letter-spacing:.5px}
+.tls-val{font-family:'Libre Baskerville',Georgia,serif;font-size:11px;color:var(--text);margin-left:auto}
 
 .term-right{padding:0;background:#080a0c;position:relative;overflow:hidden}
 /* scanlines */
@@ -192,25 +193,21 @@ h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw
    PROJECTS
 ══════════════════════════════════ */
 #projects{padding:100px 48px}
+.sec-intro{color:var(--muted);font-size:15px;line-height:1.8;max-width:720px;margin:-36px 0 48px}
 .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
 .proj-card{background:var(--s1);border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:transform .3s,border-color .3s;cursor:none}
 .proj-card:hover{transform:translateY(-6px);border-color:rgba(201,168,76,.4)}
 .proj-banner{height:4px}
 .proj-body{padding:26px}
-.proj-type{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.proj-body h3{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;margin-bottom:8px}
+.proj-type{font-family:'Libre Baskerville',Georgia,serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.proj-body h3{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:17px;margin-bottom:8px}
 .proj-body p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
 .proj-stack{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-.proj-stack span{font-family:'Space Mono',monospace;font-size:10px;background:var(--dim);color:var(--muted);padding:3px 8px;border-radius:2px}
-.proj-link{font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);text-decoration:none;transition:opacity .2s;display:inline-flex;align-items:center;gap:8px}
+.proj-stack span{font-family:'Libre Baskerville',Georgia,serif;font-size:10px;background:var(--dim);color:var(--muted);padding:3px 8px;border-radius:2px}
+.proj-link{font-family:'Libre Baskerville',Georgia,serif;font-size:11px;color:var(--gold);text-decoration:none;transition:opacity .2s;display:inline-flex;align-items:center;gap:8px}
 .proj-link:hover{opacity:.7}
 .proj-link i{font-size:0.9em}
-.prize-card{grid-column:1/-1;background:linear-gradient(135deg,#1a1300,#0d0a00);border:1px solid rgba(201,168,76,.4);border-radius:4px;padding:36px;display:flex;align-items:center;gap:36px;position:relative;overflow:hidden}
-.prize-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,.15),transparent 70%)}
-.prize-trophy{font-size:56px;flex-shrink:0}
-.prize-body h3{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;color:var(--gold);margin-bottom:8px}
-.prize-body p{color:var(--muted);font-size:14px;line-height:1.6}
-.prize-badge{margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);border:1px solid rgba(201,168,76,.4);padding:6px 14px;border-radius:2px;letter-spacing:1px}
+.proj-award{font-family:'Libre Baskerville',Georgia,serif;font-size:11px;color:var(--gold);display:inline-flex;align-items:center;gap:8px;letter-spacing:.5px}
 
 /* ══════════════════════════════════
    SKILLS
@@ -219,25 +216,25 @@ h2.sec-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
 .skill-group{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:22px;transition:border-color .3s}
 .skill-group:hover{border-color:var(--group-color,var(--gold))}
-.skill-group-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--group-color,var(--gold));margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.skill-group-label{font-family:'Libre Baskerville',Georgia,serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--group-color,var(--gold));margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .skill-group-label::before{content:'';display:block;width:14px;height:1px;background:currentColor}
 .skill-pills{display:flex;flex-wrap:wrap;gap:5px}
-.skill-pill{font-family:'Space Mono',monospace;font-size:10px;background:var(--dim);color:var(--text);padding:4px 10px;border-radius:2px}
+.skill-pill{font-family:'Libre Baskerville',Georgia,serif;font-size:10px;background:var(--dim);color:var(--text);padding:4px 10px;border-radius:2px}
 
 /* ══════════════════════════════════
    CONTACT
 ══════════════════════════════════ */
 #contact{padding:100px 48px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;min-height:80vh}
 .contact-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(201,168,76,.05),transparent 70%);pointer-events:none}
-#contact h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(40px,6vw,80px);letter-spacing:-2px;margin-bottom:16px;line-height:1}
+#contact h2{font-family:'Libre Baskerville',Georgia,serif;font-weight:800;font-size:clamp(40px,6vw,80px);letter-spacing:-2px;margin-bottom:16px;line-height:1}
 #contact h2 span{color:var(--gold)}
 #contact .sub{color:var(--muted);font-size:17px;max-width:480px;margin-bottom:40px;line-height:1.7}
 .contact-links{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
-.contact-link{display:flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--text);text-decoration:none;letter-spacing:.5px;border:1px solid var(--border);padding:12px 22px;border-radius:2px;transition:all .2s;cursor:pointer}
+.contact-link{display:flex;align-items:center;gap:10px;font-family:'Libre Baskerville',Georgia,serif;font-size:11px;color:var(--text);text-decoration:none;letter-spacing:.5px;border:1px solid var(--border);padding:12px 22px;border-radius:2px;transition:all .2s;cursor:pointer}
 .contact-link:hover{border-color:var(--gold);color:var(--gold)}
 .contact-link svg,.contact-link i{width:15px;height:15px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center}
 
-footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space Mono',monospace;font-size:11px;border-top:1px solid var(--border);letter-spacing:1px}
+footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Libre Baskerville',Georgia,serif;font-size:11px;border-top:1px solid var(--border);letter-spacing:1px}
 
 /* ── animations ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
@@ -276,14 +273,14 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
   <a href="#hero" class="logo">GC.</a>
   <ul class="nav-links">
     <li><a href="#areas">Areas</a></li>
-    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#timeline">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#terminal-sec">Terminal</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <span class="nav-badge">Open to opportunities</span>
-  <a href="index.html" class="lang-switch">🌐 PT</a>
+  <a href="index.html" class="lang-switch"><i class="fa-solid fa-globe"></i> PT</a>
 </nav>
 
 <!-- ══ HERO ══ -->
@@ -324,7 +321,7 @@ footer{text-align:center;padding:24px 48px;color:var(--muted);font-family:'Space
     <!-- RIGHT: ORRERY -->
     <div class="hero-right">
       <div style="position:relative;display:flex;flex-direction:column;align-items:center">
-        <div class="orrery-hint">✦ Hover over the planets</div>
+        <div class="orrery-hint"><i class="fa-solid fa-computer-mouse"></i> Hover over the planets</div>
         <div class="orrery-wrap">
           <canvas id="orrery-canvas" width="420" height="420"></canvas>
           <div class="planet-tip" id="planet-tip">
@@ -394,14 +391,16 @@ if(document.readyState==='loading'){
 
 <!-- ══ TIMELINE ══ -->
 <section id="timeline">
-  <p class="section-eyebrow reveal">Timeline</p>
+  <p class="section-eyebrow reveal">Experience</p>
   <h2 class="sec-h2 reveal">Where I've been,<br>where I arrived</h2>
 
   <div class="tl-layout">
     <!-- left: entries -->
     <div class="tl-wrap">
       <div class="tl-line"></div>
-      <div class="tl-item" style="--dot-color:#c9a84c"><div class="tl-dot"></div><div class="tl-date">2025 — Current</div><div class="tl-company">DSD Capital Lda</div><div class="tl-role">Full Stack · Systems Analyst · DevOps — Beira, MZ</div><ul class="tl-points"><li>Nhutchi eWallet — fintech with M-Pesa, Sumsub KYC, automated 90/10 model</li><li>RAG pipeline: n8n + OpenAI + pgvector — agent that ingests PDFs and publishes to LinkedIn</li><li>Multi-container Docker with Redis, automated backups, and GitLab CI/CD</li><li>Diagnostics of DNS/SSL failures in production (NIC.MZ, Cloudflare, Nginx)</li></ul></div>
+      <div class="tl-item" style="--dot-color:#fb923c"><div class="tl-dot"></div><div class="tl-date">2026 — Current</div><div class="tl-company">NEXUS Enterprise</div><div class="tl-role">Developer — On-site, Beira, MZ</div><ul class="tl-points"><li>Building the agency's systems and digital products</li></ul></div>
+      <div class="tl-item" style="--dot-color:#f472b6"><div class="tl-dot"></div><div class="tl-date">2026 — Current</div><div class="tl-company">Emoney Microcrédito</div><div class="tl-role">IT — On-site, Beira, MZ</div><ul class="tl-points"><li>Internal systems, infrastructure and technology support for the microcredit operation</li></ul></div>
+      <div class="tl-item" style="--dot-color:#c9a84c"><div class="tl-dot"></div><div class="tl-date">2025 — Current</div><div class="tl-company">DSD Capital Lda</div><div class="tl-role">Full Stack · Systems Analyst · DevOps — Remote</div><ul class="tl-points"><li>Nhutchi eWallet — fintech with M-Pesa, Sumsub KYC, automated 90/10 model</li><li>RAG pipeline: n8n + OpenAI + pgvector — agent that ingests PDFs and publishes to LinkedIn</li><li>Multi-container Docker with Redis, automated backups, and GitLab CI/CD</li><li>Diagnostics of DNS/SSL failures in production (NIC.MZ, Cloudflare, Nginx)</li></ul></div>
       <div class="tl-item" style="--dot-color:#00d4ff"><div class="tl-dot"></div><div class="tl-date">2023 — 2025</div><div class="tl-company">Equip Mozambique</div><div class="tl-role">Intern → Full Stack → Analyst & Scrum Master — Beira, MZ</div><ul class="tl-points"><li>FAMS and JURIS API — legal systems in Laravel, MySQL, Bootstrap/jQuery</li><li>Scrum Master: sprint planning via Azure DevOps and GitHub Projects</li><li>LAN, CCTV, backups, and information security administration</li><li>Visual content production for corporate events</li></ul></div>
       <div class="tl-item" style="--dot-color:#a78bfa"><div class="tl-dot"></div><div class="tl-date">2023 — 2025</div><div class="tl-company">Launch Legends LLC</div><div class="tl-role">Backend Developer — Remote (USA)</div><ul class="tl-points"><li>Scalable microservices and REST APIs with GoLang and PostgreSQL</li><li>PHP APIs documented with Swagger, WoWonder JS integration</li></ul></div>
       <div class="tl-item" style="--dot-color:#34d399"><div class="tl-dot"></div><div class="tl-date">2020 — 2023</div><div class="tl-company">Freelance & Contracts</div><div class="tl-role">Independent Developer</div><ul class="tl-points"><li>Geliban, Smartverso, Emoney — corporate sites in Laravel/MySQL</li><li>WordPress e-commerce with M-Pesa integration · Spring Boot API · real estate Java GUI</li></ul></div>
@@ -438,19 +437,11 @@ if(document.readyState==='loading'){
 </section>
 
 <!-- ══ PROJECTS ══ -->
-<!-- <section id="projects-intro">
-  <p class="section-eyebrow reveal">Contexto</p>
-  <h2 class="sec-h2 reveal">Sistemas, não apenas websites</h2>
-      <p class="reveal">Each item in this selection represents a solution that I fully conceived and implemented: APIs, backends, and infrastructure. The links point to the public interface or documentation, but the real value is in the architecture, logic, and engineering behind each system, the entities.</p>
-</section> -->
 <section id="projects">
   <p class="section-eyebrow reveal">Portfolio</p>
-  <h2 class="sec-h2 reveal">Built, deployed,<br>in production</h2>
-  <p class="section-eyebrow reveal">Context</p>
-  <p class="reveal">Each item in this selection represents a solution I helped design, develop, and deliver. The links point to the public interface or documentation, but the real value is in the architecture, logic, and engineering behind each system — I did not just build websites; I built the systems that power them.</p>
-  <br>
+  <h2 class="sec-h2 reveal">Systems, websites and<br>apps online and in use</h2>
+  <p class="sec-intro reveal">Everything here is live and has real users — companies, institutions and people who rely on these systems every day. On some projects I did everything, from design to delivery; on others I was part of the team. Most of my work is less in what you see and more in what holds it up: the architecture, the APIs, the business logic, the payments and the infrastructure. The links lead to the public interface or the documentation.</p>
   <div class="projects-grid">
-    <div class="prize-card reveal"><div class="prize-trophy"><i class="fa-solid fa-trophy"></i></div><div class="prize-body"><h3>1st Place — CodeLabs 2024</h3><p>Computer vision for Mozambique's Cornelder. Real-time container detection and classification. I joined without Computer Vision experience. I left in 1st place.</p><div class="prize-badge">Python · OpenCV · YOLOv8n · Cornelder 2024</div></div></div>
     <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#34d399,#10b981)"></div><div class="proj-body"><div class="proj-type">Sustainability · Marketplace</div><h3>Consciência Ubuntu</h3><p>Platform where people publish and buy articles using Nhutchi eWallet. A social marketplace with environmental impact and Mozambican digital payments.</p><div class="proj-stack"><span>Marketplace</span><span>Payments</span><span>Nhutchi</span><span>Backend</span><span>Data</span></div><a href="https://conscienciaubuntu.com/" class="proj-link" target="_blank">conscienciaubuntu.com <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
 
     <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#06b6d4,#0891b2)"></div><div class="proj-body"><div class="proj-type">Health · Mobile & Web</div><h3>Consultare</h3><p>Mobile and web first-aid app created by a community of Mozambican doctors in partnership with organizations like Equip Mozambique. Helps families make quick decisions in home emergencies with simple content, illustrations, and offline support.</p><div class="proj-stack"><span>Mobile</span><span>Web</span><span>Offline</span><span>Illustrations</span><span>Community</span></div><a href="https://consultare.app/" class="proj-link" target="_blank">consultare.app <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
@@ -470,6 +461,7 @@ if(document.readyState==='loading'){
     <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#f472b6,#ec4899)"></div><div class="proj-body"><div class="proj-type">Delivery · Mobile</div><h3>Restaurant System</h3><p>Geo-delivery with route calculation. Laravel + React.js powering an IONIC app.</p><div class="proj-stack"><span>React.js</span><span>Laravel</span><span>IONIC</span><span>Geo API</span><span>MySQL</span></div></div></div>
 
     <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#ec4899,#f472b6)"></div><div class="proj-body"><div class="proj-type">Events · Web</div><h3>Web Invitation</h3><p>Interactive digital invitation for a couple — elegant design, smooth animations, and responsive experience on every device.</p><div class="proj-stack"><span>HTML/CSS</span><span>JavaScript</span><span>Responsive</span><span>Animations</span></div><a href="https://kheyssper.site/convite_web/" class="proj-link" target="_blank">kheyssper.site/convite_web <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+    <div class="proj-card reveal"><div class="proj-banner" style="background:linear-gradient(90deg,#c9a84c,#e8c97a)"></div><div class="proj-body"><div class="proj-type">Computer Vision · Logistics</div><h3>Container Detection — Cornelder</h3><p>Computer vision for Mozambique's Cornelder. Real-time container detection and classification. I joined without Computer Vision experience. I left in 1st place.</p><div class="proj-stack"><span>Python</span><span>OpenCV</span><span>YOLOv8n</span></div><div class="proj-award"><i class="fa-solid fa-trophy"></i> 1st place · CodeLabs 2024</div></div></div>
   </div>
 </section>
 
@@ -579,12 +571,12 @@ document.querySelectorAll('a,.area-card,.proj-card,.contact-link,.btn,.skill-gro
   const ptSkills=document.getElementById('pt-skills');
 
   const planets=[
-    {name:'☿ Mercury',r:52,speed:.009,angle:0,size:13,color:'#c9a84c',skills:'Messages delivered in ms — APIs & Webhooks'},
-    {name:'♀ Venus',r:86,speed:.006,angle:1.5,size:10,color:'#00d4ff',skills:'Beautiful outside, solid inside — Frontend & UX'},
-    {name:'🌍 Earth',r:118,speed:.004,angle:2.8,size:15,color:'#a78bfa',skills:'The server that never sleeps — DevOps & Uptime'},
-    {name:'♂ Mars',r:148,speed:.005,angle:0.9,size:9,color:'#34d399',skills:'Deploying to production at 3am — Backend & Resilience'},
-    {name:'♃ Jupiter',r:172,speed:.007,angle:4.2,size:8,color:'#fb923c',skills:'Attracts everything around it — Systems Architecture'},
-    {name:'♄ Saturn',r:193,speed:.003,angle:5.8,size:6,color:'#f472b6',skills:'The rings? My CI/CD pipelines — Automation & AI'},
+    {icon:'fa-bolt',name:'Mercury',r:52,speed:.009,angle:0,size:13,color:'#c9a84c',skills:'Messages delivered in ms — APIs & Webhooks'},
+    {icon:'fa-palette',name:'Venus',r:86,speed:.006,angle:1.5,size:10,color:'#00d4ff',skills:'Beautiful outside, solid inside — Frontend & UX'},
+    {icon:'fa-earth-africa',name:'Earth',r:118,speed:.004,angle:2.8,size:15,color:'#a78bfa',skills:'The server that never sleeps — DevOps & Uptime'},
+    {icon:'fa-rocket',name:'Mars',r:148,speed:.005,angle:0.9,size:9,color:'#34d399',skills:'Deploying to production at 3am — Backend & Resilience'},
+    {icon:'fa-sitemap',name:'Jupiter',r:172,speed:.007,angle:4.2,size:8,color:'#fb923c',skills:'Attracts everything around it — Systems Architecture'},
+    {icon:'fa-gears',name:'Saturn',r:193,speed:.003,angle:5.8,size:6,color:'#f472b6',skills:'The rings? My CI/CD pipelines — Automation & AI'},
   ];
 
   let mouseX=-1,mouseY=-1,spinning=true,t=0;
@@ -620,7 +612,7 @@ document.querySelectorAll('a,.area-card,.proj-card,.contact-link,.btn,.skill-gro
     sc.addColorStop(0,'rgba(232,201,122,0.25)');sc.addColorStop(1,'transparent');
     ctx.beginPath();ctx.arc(CX,CY,36,0,Math.PI*2);ctx.fillStyle=sc;ctx.fill();
     /* sun label */
-    ctx.font='bold 8px Space Mono,monospace';ctx.fillStyle='rgba(201,168,76,0.5)';ctx.textAlign='center';ctx.fillText('GC',CX,CY+3);
+    ctx.font="bold 8px 'Libre Baskerville',serif";ctx.fillStyle='rgba(201,168,76,0.5)';ctx.textAlign='center';ctx.fillText('GC',CX,CY+3);
 
     let hoveredAny=false;
     planets.forEach(p=>{
@@ -658,7 +650,7 @@ document.querySelectorAll('a,.area-card,.proj-card,.contact-link,.btn,.skill-gro
         const offX=px>CX?-(tip.offsetWidth+12):12;
         tip.style.left=(tx+offX)+'px';
         tip.style.top=(ty-20)+'px';
-        ptName.textContent=p.name;
+        ptName.innerHTML=`<i class="fa-solid ${p.icon}"></i> ${p.name}`;
         ptSkills.textContent=p.skills;
       }
     });
@@ -726,7 +718,7 @@ document.querySelectorAll('a,.area-card,.proj-card,.contact-link,.btn,.skill-gro
       ctx.fillStyle=colors[i];ctx.fill();
       const a=-Math.PI/2+(i/N)*Math.PI*2;
       const lx=CX+(R+18)*Math.cos(a),ly=CY+(R+18)*Math.sin(a);
-      ctx.font='9px Space Mono,monospace';ctx.fillStyle='rgba(90,90,114,0.9)';ctx.textAlign='center';
+      ctx.font="9px 'Libre Baskerville',serif";ctx.fillStyle='rgba(90,90,114,0.9)';ctx.textAlign='center';
       ctx.fillText(labels[i],lx,ly+3);
     });
 
