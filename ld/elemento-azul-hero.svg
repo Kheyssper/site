@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" fill="none">
+  <title>Faixa azul abstrata para a hero</title>
+  <desc>Fita azul com duas curvas e volume em gradiente, inspirada no mockup, sobre fundo transparente.</desc>
+  <defs>
+    <linearGradient id="left" x1="98" y1="329" x2="494" y2="284" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1554F5"/><stop offset=".25" stop-color="#63A5FF"/><stop offset=".7" stop-color="#AED8FF"/><stop offset="1" stop-color="#E4F3FF" stop-opacity=".7"/>
+    </linearGradient>
+    <linearGradient id="leftTurn" x1="101" y1="376" x2="400" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C5E5FF"/><stop offset=".35" stop-color="#6EA9FF"/><stop offset="1" stop-color="#175CED"/>
+    </linearGradient>
+    <linearGradient id="top" x1="478" y1="326" x2="916" y2="162" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ABD7FF"/><stop offset=".45" stop-color="#599BFF"/><stop offset=".8" stop-color="#2365F8"/><stop offset="1" stop-color="#174DE8"/>
+    </linearGradient>
+    <linearGradient id="loop" x1="948" y1="139" x2="847" y2="740" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B9DCFF"/><stop offset=".23" stop-color="#619EFF"/><stop offset=".48" stop-color="#2872FA"/><stop offset=".77" stop-color="#8DBBFF"/><stop offset="1" stop-color="#D2E9FF" stop-opacity=".7"/>
+    </linearGradient>
+    <linearGradient id="tail" x1="672" y1="788" x2="1181" y2="590" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B8DBFF" stop-opacity=".25"/><stop offset=".55" stop-color="#9ECAFF" stop-opacity=".65"/><stop offset="1" stop-color="#BEDFFF" stop-opacity=".85"/>
+    </linearGradient>
+  </defs>
+  <path d="M120 444C41 329 186 265 325 278C409 285 463 314 529 346L509 365C433 332 364 310 294 314C173 317 103 365 120 444Z" fill="url(#left)"/>
+  <path d="M120 444C100 407 99 376 109 352C83 404 152 460 244 498C341 539 439 575 520 637L480 697C378 597 263 574 174 509C150 491 131 468 120 444Z" fill="url(#leftTurn)"/>
+  <path d="M441 386C564 256 695 118 850 111C917 107 954 152 975 211C887 172 809 198 726 239C627 288 544 350 477 417L441 386Z" fill="url(#top)"/>
+  <path d="M850 111C954 105 1032 169 1062 253C1110 388 1024 553 901 658C832 717 747 761 656 790L604 749C721 694 819 618 889 521C970 409 1007 289 975 211C954 152 917 107 850 111Z" fill="url(#loop)"/>
+  <path d="M604 749C796 770 1018 702 1200 547V653C1025 772 807 829 656 790L604 749Z" fill="url(#tail)"/>
+</svg>
