@@ -373,13 +373,14 @@
     .hero-grid{display:block}
     .hero-copy{padding:40px 0 36px}
     .hero h1{font-size:clamp(1.75rem,7.6vw,2.4rem);line-height:1.06;margin:.4em 0 .5em;max-width:60%}
-    .hero .lead{font-size:.95rem;line-height:1.55;max-width:min(51%,19em)}
+    .hero .lead{font-size:.95rem;line-height:1.55;max-width:min(46%,19em)}
     .hero .btn{margin-top:28px;font-size:.98rem;padding:.9em 1.6em}
     /* a foto ocupa a coluna direita, à escala certa (cover, nunca esticada) */
-    .hero-photo{position:absolute;z-index:1;top:16px;right:0;bottom:auto;height:calc(100% - 126px);width:50%;padding:0;overflow:hidden;
+    /* foto inteira: ancorada à esquerda, o ombro pode sair pela direita */
+    .hero-photo{position:absolute;z-index:1;top:16px;left:47%;right:auto;bottom:auto;height:calc(100% - 126px);width:auto;padding:0;
       background:radial-gradient(55% 45% at 55% 30%,rgba(124,170,255,.35),transparent 72%);
       -webkit-mask:linear-gradient(#000 72%,transparent);mask:linear-gradient(#000 72%,transparent)}
-    .hero-photo img{position:absolute;inset:0;transform:none;width:100%;height:100%;max-height:none;object-fit:cover;object-position:50% 0}
+    .hero-photo img{position:static;transform:none;width:auto;height:100%;max-width:none;max-height:none}
     .hero .ribbon-main{width:460px;right:-230px;top:0;bottom:auto;opacity:.85}
     .hero-meta{gap:0;margin-top:34px;flex-wrap:nowrap}
     .meta{gap:12px;padding-right:18px}
@@ -398,13 +399,13 @@
 
     /* tecnologia: texto e dispositivos lado a lado */
     .tech{padding:48px 0}
-    .tech-grid{grid-template-columns:1.1fr .9fr;gap:10px}
+    .tech-grid{grid-template-columns:1fr 1fr;gap:6px}
     .tech h2{font-size:1.4rem;margin:.4em 0 .4em}
     .tech .lead{font-size:.86rem;line-height:1.5}
     .checks{margin-top:20px;gap:12px}
     .checks li{font-size:.8rem;gap:10px;line-height:1.35}
     .checks i{font-size:.95rem}
-    .devices{padding:0 8% 6% 0}
+    .devices{padding:0 7% 6% 0;width:calc(100% + 22px);margin-right:-22px}
     .toast{display:none}
     .tech .m-only{display:block;width:320px;right:-200px;top:-30px;opacity:.5}
 
@@ -458,7 +459,10 @@
     .bcard{grid-template-columns:1fr;align-items:start;padding:16px 14px}
     .bcard .ico{grid-row:auto;margin-bottom:12px}
     .bcard h3,.bcard p{align-self:auto}
-    .tech-grid{grid-template-columns:1.2fr .8fr}
+    .tech-grid{grid-template-columns:1.12fr .88fr}
+    .tech .eyebrow{letter-spacing:.12em}
+    .tech h2{font-size:clamp(1.18rem,5.6vw,1.4rem)}
+    .devices{width:calc(100% + 28px);margin-right:-28px}
     .mentor-stats-m li{grid-template-columns:1fr;padding:0 10px}
     .mentor-stats-m .si{grid-row:auto;margin-bottom:6px}
     .plan{grid-template-columns:36px 1fr auto;grid-template-rows:auto auto auto}
