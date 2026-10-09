@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="pt">
 <head>
+<script>if (new URLSearchParams(location.search).get('v') === '1') document.documentElement.classList.add('hero-lado');</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Microcrédito na Prática — Curso Intensivo</title>
@@ -511,7 +512,7 @@
     animation:goldShine 6s 1.2s ease-in-out infinite}
   @keyframes goldShine{0%,100%{background-position:0 0}50%{background-position:100% 0}}
   .hero .lead{color:#d2ddf5;max-width:29em}
-  .hero .btn-red{box-shadow:0 14px 34px -10px rgba(227,25,47,.75),inset 0 1px 0 rgba(255,255,255,.25);background:linear-gradient(180deg,#f0263c,#d0122a)}
+  .hero .btn-red{background:linear-gradient(180deg,#f0263c,#d0122a)}
   .hero .meta i{color:#3f8cff}
   .hero .meta b{color:#fff}
   .hero .meta div>span{color:#9fb3dc}
@@ -548,6 +549,36 @@
     .hero .eyebrow{gap:12px}
     .hero-photo{background:none}
     .hero-photo::before{display:none}
+  }
+
+  /* ---------- HERO NO TELEMÓVEL: cartaz centrado, Edson no meio ---------- */
+  @media (max-width:640px){
+    html:not(.hero-lado) .hero-grid{display:flex;flex-direction:column;align-items:center;text-align:center;padding:34px 0 40px}
+    html:not(.hero-lado) .hero-copy{display:contents}
+    html:not(.hero-lado) .hero .eyebrow{order:1;justify-content:center;gap:12px;letter-spacing:.28em}
+    html:not(.hero-lado) .hero .eyebrow::before{content:"";width:clamp(28px,8vw,48px);height:2px;border-radius:2px;background:linear-gradient(270deg,#3f8cff,rgba(63,140,255,.2))}
+    html:not(.hero-lado) .hero .eyebrow::after{width:clamp(28px,8vw,48px)}
+    html:not(.hero-lado) .hero h1{order:2;font-size:clamp(2.7rem,13.5vw,4rem);max-width:none;margin:.18em 0 0;position:relative;z-index:3}
+    html:not(.hero-lado) .hero h1 .gold{margin-inline:auto}
+    html:not(.hero-lado) .hero-photo{order:3;align-self:center;padding:0;position:relative;inset:auto;left:auto;top:auto;height:auto;width:min(74vw,330px);margin:6px 0 calc(-1 * min(44vw,200px));
+      overflow:visible;z-index:1;background:none;
+      -webkit-mask:linear-gradient(#000 52%,rgba(0,0,0,.35) 74%,transparent 92%);mask:linear-gradient(#000 52%,rgba(0,0,0,.35) 74%,transparent 92%)}
+    html:not(.hero-lado) .hero-photo img{position:static;display:block;width:100%;height:auto;margin:0;transform:none}
+    html:not(.hero-lado) .hero .lead{order:4;position:relative;z-index:2;max-width:22em;margin-inline:auto;font-size:1rem;color:#e1e9fb;text-shadow:0 2px 14px rgba(3,10,32,.9)}
+    html:not(.hero-lado) .hero .btn{order:5;position:relative;z-index:2;align-self:center;width:100%;max-width:380px;margin-top:26px}
+    html:not(.hero-lado) .hero-meta{order:6;position:relative;z-index:2;justify-content:center;margin-top:28px;text-align:left}
+    html:not(.hero-lado) .hero .ribbon-main{width:min(150vw,640px);right:auto;bottom:auto;margin:0;opacity:.9}
+    html:not(.hero-lado) .hero::after{background:linear-gradient(0deg,rgba(3,10,32,.85) 0%,rgba(3,10,32,.35) 40%,transparent 62%)}
+    html:not(.hero-lado) .hero{background:
+      radial-gradient(360px 420px at 50% 42%,rgba(38,104,236,.6),transparent 66%),
+      linear-gradient(170deg,#040d27 0%,#09205a 55%,#050f2e 100%)}
+  }
+  /* ---------- VERSÃO 1 (?v=1): texto à esquerda, foto mais para a esquerda ---------- */
+  @media (max-width:640px){
+    html.hero-lado .hero-photo{left:48%}
+    html.hero-lado .hero .lead{position:relative;z-index:3;color:#e6edfc;text-shadow:0 1px 2px rgba(3,10,32,.9),0 0 18px rgba(3,10,32,.95)}
+    html.hero-lado .hero-meta{position:relative;z-index:3}
+    html.hero-lado .hero .ribbon-main{right:-170px}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -828,6 +859,26 @@
     return { el, m, s, sec: el.closest('header, section') };
   });
   const hero = document.querySelector('.hero');
+
+  // Versão cartaz no telemóvel: centra a volta da fita no Edson
+  const ribbonMain = document.querySelector('.ribbon-main');
+  const heroPhoto = document.querySelector('.hero-photo');
+  const posterMq = matchMedia('(max-width: 640px)');
+  const placeRibbon = () => {
+    if (!posterMq.matches || document.documentElement.classList.contains('hero-lado')) {
+      ribbonMain.style.left = ribbonMain.style.top = '';
+      return;
+    }
+    const h = hero.getBoundingClientRect(), p = heroPhoto.getBoundingClientRect();
+    const w = ribbonMain.offsetWidth, rh = ribbonMain.offsetHeight;
+    // a volta da fita fica a ~58% da largura e ~49% da altura do SVG
+    ribbonMain.style.left = (p.left - h.left + p.width / 2 - w * .58) + 'px';
+    ribbonMain.style.top = (p.top - h.top + p.width * .62 - rh * .49) + 'px';
+  };
+  addEventListener('resize', placeRibbon);
+  addEventListener('load', placeRibbon);
+  heroPhoto.querySelector('img').addEventListener('load', placeRibbon);
+  placeRibbon();
   const follow = document.querySelector('.aura.follow');
   let mx = 0, my = 0, cx = 0, cy = 0, fx = innerWidth * .7, fy = innerHeight * .4, tfx = fx, tfy = fy;
   if (finePointer) addEventListener('pointermove', e => {
