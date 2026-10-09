@@ -169,10 +169,6 @@
   .devices{position:relative;padding:0 9% 6% 0}
   .devices::after{content:"";position:absolute;left:6%;right:14%;bottom:2%;height:9%;z-index:-1;border-radius:50%;
     background:radial-gradient(closest-side,rgba(11,23,54,.28),transparent);filter:blur(10px)}
-  .devices .laptop-img{width:100%;height:auto;filter:drop-shadow(0 30px 40px rgba(11,23,54,.18))}
-  .phone-wrap{position:absolute;right:0;bottom:0;width:27%;
-    transform:translate3d(calc(var(--ry,0) * 1.6px),calc(var(--rx,0) * -1.6px),40px);transition:transform .5s var(--ease)}
-  .phone-wrap img{width:100%;height:auto;filter:drop-shadow(0 28px 30px rgba(11,23,54,.35));animation:float 6s ease-in-out infinite}
   .toast{position:absolute;left:-3%;top:6%;z-index:3;display:flex;align-items:center;gap:12px;padding:11px 16px 11px 12px;border-radius:12px;
     background:rgba(255,255,255,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid #fff;
     box-shadow:0 18px 40px -16px rgba(11,23,54,.4);font-size:.82rem;color:var(--muted);
@@ -581,6 +577,92 @@
     html.hero-lado .hero .ribbon-main{right:-170px}
   }
 
+  /* ================= TEMA ESCURO: toda a página no azul do hero ================= */
+  html body{background:#050f2e;color:#b8c6e6}
+  html section{background:transparent}
+  html main{position:relative;isolation:isolate;
+    background:
+      radial-gradient(900px 600px at 85% 18%,rgba(38,104,236,.20),transparent 65%),
+      radial-gradient(800px 600px at 0% 45%,rgba(30,80,200,.18),transparent 65%),
+      radial-gradient(900px 700px at 100% 78%,rgba(38,104,236,.16),transparent 65%),
+      linear-gradient(180deg,#061436 0%,#071a46 30%,#06143b 62%,#040d27 100%)}
+  /* grelha muito subtil, como nos ecrãs do mockup */
+  html main::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:56px 56px;
+    -webkit-mask:linear-gradient(transparent,#000 10%,#000 90%,transparent);mask:linear-gradient(transparent,#000 10%,#000 90%,transparent)}
+  html main .aura{mix-blend-mode:screen;opacity:.6}
+  html main section+section{border-top:1px solid rgba(140,180,255,.07)}
+
+  /* títulos e etiquetas no estilo do hero */
+  html .sec-title,html .tech h2{font-family:"Barlow Condensed","Outfit",sans-serif;font-weight:800;color:#fff;letter-spacing:0;line-height:.98;
+    font-size:clamp(2.2rem,4.2vw,3.4rem)}
+  html main .eyebrow{color:#e7b54a;letter-spacing:.24em}
+  html main .mentor .eyebrow{color:#e7b54a}
+
+  /* benefícios: cartões de vidro escuro */
+  html .benefits{background:transparent}
+  html .bcard{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(140,180,255,.16);
+    box-shadow:0 20px 40px -24px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  html .bcard:hover{box-shadow:0 26px 50px -24px rgba(20,99,243,.55),inset 0 1px 0 rgba(255,255,255,.08)}
+  html .bcard h3{color:#fff}
+  html .bcard p{color:#9fb3dc}
+  html .ico{background:rgba(63,140,255,.16);color:#7fb2ff;box-shadow:inset 0 0 0 1px rgba(127,178,255,.22)}
+  html .spot::before{background:radial-gradient(380px circle at var(--mx) var(--my),rgba(63,140,255,.14),transparent 45%)}
+
+  /* sistema de gestão */
+  html .tech{background:transparent}
+  html .tech .lead{color:#c9d6f2}
+  html .checks li{color:#dbe4f7}
+  html .checks i{color:#fff;background:rgba(63,140,255,.22);border:1px solid rgba(127,178,255,.3);width:30px;height:30px;border-radius:9px;
+    display:grid;place-items:center;font-size:.85rem;flex:none}
+  html .checks i::before{content:"\f00c"}
+
+  /* sistema em 3D: imagem única (portátil + telemóvel) com brilho e sombra */
+  html .devices{padding:0;margin-right:-3%}
+  html .devices::before{content:"";position:absolute;left:12%;right:6%;top:4%;bottom:14%;z-index:-1;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(47,123,255,.5),transparent);filter:blur(44px)}
+  html .devices::after{left:6%;right:8%;bottom:1%;height:9%;background:radial-gradient(closest-side,rgba(0,0,0,.75),transparent);filter:blur(14px)}
+  html .sys3d{display:block;width:100%;height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.5)) drop-shadow(0 0 36px rgba(63,140,255,.2));animation:float 7s ease-in-out infinite}
+  html .toast{left:auto;right:4%;top:-4%}
+
+  /* quem ensina */
+  html .teacher{background:transparent}
+  html .mentor{border-color:rgba(140,180,255,.16);
+    background:radial-gradient(560px 420px at 22% 62%,rgba(47,123,255,.38),transparent 62%),linear-gradient(135deg,#0d1f55 0%,#0a1a48 58%,#081640 100%);
+    box-shadow:0 40px 80px -40px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.06)}
+  html .mentor-stats-m b{color:#fff}
+  html .mentor-stats-m li>span:not(.si){color:#9fb3dc}
+  html .mentor-stats-m li+li{border-left-color:rgba(255,255,255,.12)}
+  html .mentor-stats-m .si{background:rgba(63,140,255,.18);color:#7fb2ff}
+
+  /* pacotes */
+  html .pricing{background:transparent}
+  html .plan{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border-color:rgba(140,180,255,.16);color:#c9d6f2;
+    box-shadow:0 24px 48px -26px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.06)}
+  html .plan.pop{background:linear-gradient(160deg,#0f2a6e,#0b1f55);border-color:#2f7bff;box-shadow:0 26px 60px -24px rgba(20,99,243,.65)}
+  html .plan h3{color:#fff}
+  html .price{color:#fff}
+  html .plan li i{color:#5fa0ff}
+  html .btn-ghost{background:rgba(255,255,255,.04);color:#cfe0ff;border-color:rgba(140,180,255,.35)}
+  html .btn-ghost:hover{background:rgba(63,140,255,.16);border-color:#5fa0ff;color:#fff}
+
+  /* CTA final e rodapé */
+  html .final{background:radial-gradient(700px 300px at 50% 0%,rgba(47,123,255,.28),transparent 70%),linear-gradient(180deg,#071a46,#050f2e)}
+  html .final h2{color:#fff;font-family:"Barlow Condensed","Outfit",sans-serif;font-weight:800;font-size:clamp(2rem,3.6vw,2.8rem);letter-spacing:0}
+  html .final p{color:#c9d6f2}
+  html .final .ribbon{filter:drop-shadow(0 0 14px rgba(40,120,255,.6));opacity:.85}
+  html footer{background:#030a20;color:#7f93bf;border-top:1px solid rgba(140,180,255,.08)}
+
+
+  @media (max-width:640px){
+    html .sec-title,html .tech h2{font-size:clamp(1.9rem,8.4vw,2.4rem)}
+    html .tech-grid{grid-template-columns:1fr;gap:30px}
+    html .tech .lead{font-size:.98rem}
+    html .checks li{font-size:.95rem}
+    html .devices{width:100%;margin:0;padding:0}
+    html .checks i{width:22px;height:22px;border-radius:7px;font-size:.62rem}
+  }
+
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     *,*::before,*::after{animation:none !important;transition:none !important}
@@ -654,8 +736,7 @@
 
       <div class="rv">
         <div class="devices" data-tilt="5">
-          <img class="laptop-img" src="sistema-portatil.webp" alt="Sistema de gestão de microcrédito no portátil, na página de clientes" width="1400" height="864" loading="lazy">
-          <div class="phone-wrap"><img src="sistema-telemovel.webp" alt="O mesmo sistema no telemóvel, com a lista de clientes" width="482" height="900" loading="lazy"></div>
+          <img class="sys3d" src="sistema-3d.webp" alt="Sistema eMoney de gestão de microcrédito no portátil, com o painel de controlo, e no telemóvel, com a lista de clientes" width="1440" height="882" loading="lazy">
           <div class="toast" aria-hidden="true"><span class="ti"><i></i></span><div><b></b><span></span></div></div>
         </div>
       </div>
