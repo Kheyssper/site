@@ -409,7 +409,8 @@
     /* quem ensina: cartão compacto + destaques por baixo */
     .mentor{grid-template-columns:42% 1fr;margin-top:30px;border-radius:16px}
     .mentor-visual{min-height:0;border-radius:16px 0 0 16px}
-    .mentor-photo{height:calc(100% + 24px)}
+    .mentor-photo{left:0;right:auto;transform:none;width:100%;height:calc(100% + 14px);max-height:none;object-fit:contain;object-position:50% 100%}
+    .mentor-body{position:relative;z-index:2}
     .mentor-tag,.mentor-link,.mentor-body .mentor-stats{display:none}
     .mentor-body{padding:24px 18px 24px 4px}
     .mentor .eyebrow{font-size:.62rem}
@@ -549,21 +550,21 @@
 
   /* ---------- HERO NO TELEMÓVEL: cartaz centrado, Edson no meio ---------- */
   @media (max-width:640px){
-    html:not(.hero-lado) .hero-grid{display:flex;flex-direction:column;align-items:center;text-align:center;padding:34px 0 40px}
+    html:not(.hero-lado) .hero-grid{display:flex;flex-direction:column;align-items:center;text-align:center;padding:30px 0 40px}
     html:not(.hero-lado) .hero-copy{display:contents}
     html:not(.hero-lado) .hero .eyebrow{order:1;justify-content:center;gap:12px;letter-spacing:.28em}
     html:not(.hero-lado) .hero .eyebrow::before{content:"";width:clamp(28px,8vw,48px);height:2px;border-radius:2px;background:linear-gradient(270deg,#3f8cff,rgba(63,140,255,.2))}
     html:not(.hero-lado) .hero .eyebrow::after{width:clamp(28px,8vw,48px)}
     html:not(.hero-lado) .hero h1{order:2;font-size:clamp(2.7rem,13.5vw,4rem);max-width:none;margin:.18em 0 0;position:relative;z-index:3}
     html:not(.hero-lado) .hero h1 .gold{margin-inline:auto}
-    html:not(.hero-lado) .hero-photo{order:3;align-self:center;padding:0;position:relative;inset:auto;left:auto;top:auto;height:auto;width:min(74vw,330px);margin:6px 0 calc(-1 * min(44vw,200px));
+    html:not(.hero-lado) .hero-photo{order:3;align-self:center;padding:0;position:relative;inset:auto;left:auto;top:auto;height:auto;width:min(74vw,330px);margin:14px 0 calc(-1 * min(44vw,200px));
       overflow:visible;z-index:1;background:none;
       -webkit-mask:linear-gradient(#000 52%,rgba(0,0,0,.35) 74%,transparent 92%);mask:linear-gradient(#000 52%,rgba(0,0,0,.35) 74%,transparent 92%)}
     html:not(.hero-lado) .hero-photo img{position:static;display:block;width:100%;height:auto;margin:0;transform:none}
     html:not(.hero-lado) .hero .lead{order:4;position:relative;z-index:2;max-width:22em;margin-inline:auto;font-size:1rem;color:#e1e9fb;text-shadow:0 2px 14px rgba(3,10,32,.9)}
     html:not(.hero-lado) .hero .btn{order:5;position:relative;z-index:2;align-self:center;width:100%;max-width:380px;margin-top:26px}
     html:not(.hero-lado) .hero-meta{order:6;position:relative;z-index:2;justify-content:center;margin-top:28px;text-align:left}
-    html:not(.hero-lado) .hero .ribbon-main{width:min(150vw,640px);right:auto;bottom:auto;margin:0;opacity:.9}
+    html:not(.hero-lado) .hero .ribbon-main{width:min(124vw,540px);max-width:none;right:auto;bottom:auto;margin:0;opacity:.9}
     html:not(.hero-lado) .hero::after{background:linear-gradient(0deg,rgba(3,10,32,.85) 0%,rgba(3,10,32,.35) 40%,transparent 62%)}
     html:not(.hero-lado) .hero{background:
       radial-gradient(360px 420px at 50% 42%,rgba(38,104,236,.6),transparent 66%),
@@ -663,6 +664,54 @@
     html .checks i{width:22px;height:22px;border-radius:7px;font-size:.62rem}
   }
 
+  /* ================= QUIZ ================= */
+  .quiz{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:16px}
+  .quiz[hidden]{display:none}
+  .quiz-backdrop{position:absolute;inset:0;background:rgba(2,7,24,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;transition:opacity .25s}
+  .quiz-card{position:relative;width:min(560px,100%);max-height:calc(100svh - 32px);overflow:auto;border-radius:22px;padding:30px clamp(20px,4vw,34px) 22px;color:#c9d6f2;
+    background:radial-gradient(420px 260px at 85% 0%,rgba(47,123,255,.32),transparent 70%),linear-gradient(160deg,#0e2462,#081a48 60%,#06143b);
+    border:1px solid rgba(140,180,255,.2);box-shadow:0 40px 90px -30px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.08);
+    opacity:0;translate:0 18px;scale:.97;transition:opacity .3s,translate .35s var(--ease),scale .35s var(--ease)}
+  .quiz.open .quiz-backdrop{opacity:1}
+  .quiz.open .quiz-card{opacity:1;translate:0 0;scale:1}
+  .quiz-x{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;font-size:1rem}
+  .quiz-x:hover{background:rgba(255,255,255,.14)}
+  .quiz-top{padding-right:44px}
+  .quiz-step-label{font-family:var(--head);font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#e7b54a}
+  .quiz-bar{margin-top:10px;height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden}
+  .quiz-bar span{display:block;height:100%;width:8%;border-radius:inherit;background:linear-gradient(90deg,#2f7bff,#7cc4ff);transition:width .45s var(--ease)}
+  .quiz-step{border:0;min-width:0;margin-top:22px;animation:qIn .4s var(--ease)}
+  @keyframes qIn{from{opacity:0;translate:14px 0}to{opacity:1;translate:0 0}}
+  .quiz-q{font-family:"Barlow Condensed","Outfit",sans-serif;font-weight:800;color:#fff;font-size:clamp(1.7rem,5vw,2.15rem);line-height:1.02;padding:0}
+  .quiz-q:focus{outline:none}
+  .quiz-hint{margin-top:8px;color:#9fb3dc;font-size:.95rem}
+  .quiz-opts{display:grid;gap:10px;margin-top:18px}
+  .quiz-opt{position:relative;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;cursor:pointer;color:#e6edfc;font-size:1rem;line-height:1.3;
+    background:rgba(255,255,255,.05);border:1px solid rgba(140,180,255,.18);transition:background .2s,border-color .2s,translate .2s var(--ease)}
+  .quiz-opt:hover{background:rgba(63,140,255,.12);border-color:rgba(127,178,255,.45);translate:2px 0}
+  .quiz-opt input{position:absolute;opacity:0;pointer-events:none}
+  .quiz-opt small{display:block;color:#8fa6d6;font-size:.82rem;margin-top:2px}
+  .quiz-opt .qi{flex:none;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:rgba(63,140,255,.18);color:#7fb2ff;transition:background .2s,color .2s}
+  .quiz-opt:has(input:checked){background:rgba(47,123,255,.22);border-color:#3f8cff}
+  .quiz-opt:has(input:checked) .qi{background:#2f7bff;color:#fff}
+  .quiz-opt:has(input:focus-visible){outline:2px solid #7fb2ff;outline-offset:2px}
+  .quiz-result{text-align:center}
+  .quiz-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;font-family:var(--head);font-size:.85rem;font-weight:500;color:#bff0d2;background:rgba(95,208,143,.14);border:1px solid rgba(95,208,143,.35)}
+  .quiz-badge i{color:#5fd08f}
+  .quiz-result .quiz-q{margin-top:16px}
+  .gold-t{white-space:nowrap;background:linear-gradient(100deg,#fff1b8,#f9cf55 30%,#e3a321 60%,#f6c344);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .quiz-price{margin-top:6px;font-family:var(--head);font-weight:700;color:#fff;font-size:1.5rem}
+  .quiz-result .quiz-hint{max-width:28em;margin-inline:auto}
+  .quiz-field{display:grid;gap:6px;margin-top:20px;text-align:left;font-size:.88rem;color:#9fb3dc}
+  .quiz-field input{font:inherit;font-size:1rem;color:#fff;padding:13px 14px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(140,180,255,.25);outline:none;transition:border-color .2s}
+  .quiz-field input:focus{border-color:#3f8cff;box-shadow:0 0 0 3px rgba(63,140,255,.2)}
+  .quiz-field input.err{border-color:#ff5a6a;box-shadow:0 0 0 3px rgba(255,90,106,.18)}
+  .quiz-go{width:100%;margin-top:16px}
+  .quiz-note{margin-top:12px;font-size:.82rem;color:#8fa6d6}
+  .quiz-nav{display:flex;margin-top:16px;min-height:24px}
+  .quiz-back{border:0;background:none;color:#9fb3dc;font:inherit;font-size:.92rem;cursor:pointer;display:inline-flex;gap:8px;align-items:center;padding:4px 0}
+  .quiz-back:hover{color:#fff}
+
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     *,*::before,*::after{animation:none !important;transition:none !important}
@@ -685,7 +734,7 @@
       <p class="eyebrow rv">Curso intensivo</p>
       <h1 class="rv"><span class="h-l">Aprenda</span> <span class="h-l gold">Microcrédito</span> <span class="h-l">na Prática</span></h1>
       <p class="lead rv">Do zero à gestão real de uma operação de microcrédito, com ferramentas e casos do mercado.</p>
-      <a href="#pacotes" class="btn btn-red rv" data-magnetic>Garantir a minha vaga <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#pacotes" class="btn btn-red rv" data-magnetic data-quiz>Garantir a minha vaga <i class="fa-solid fa-arrow-right"></i></a>
       <div class="hero-meta rv">
         <div class="meta"><i class="fa-solid fa-user-group"></i><div><b><span data-count="30">30</span> vagas</b><span>Turma limitada</span></div></div>
         <div class="meta"><i class="fa-regular fa-calendar"></i><div><b>Início 30 de Outubro</b><span>Online e ao vivo</span></div></div>
@@ -754,7 +803,7 @@
             <span class="mentor-glow"></span>
             <img class="ribbon mentor-ribbon" src="elemento-azul-hero.svg" alt="">
           </div>
-          <img class="mentor-photo" src="edson-recorte-hd.webp" alt="Edson Damacene, formador do curso" width="910" height="1496" loading="lazy">
+          <img class="mentor-photo" src="edson-formador.webp" alt="Edson Damacene, formador do curso, de fato azul a ajustar o punho" width="776" height="1195" loading="lazy">
           <span class="mentor-tag"><i class="fa-solid fa-circle-check"></i>Formador do curso</span>
         </div>
         <div class="mentor-body">
@@ -845,12 +894,72 @@
         <h2>Garanta a sua vaga agora.</h2>
         <p>Dê o próximo passo na sua carreira e aprenda microcrédito com quem vive o mercado em Moçambique.</p>
       </div>
-      <a href="#pacotes" class="btn btn-red rv" data-magnetic>Garantir a minha vaga <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#pacotes" class="btn btn-red rv" data-magnetic data-quiz>Garantir a minha vaga <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </section>
 </main>
 
 <footer><div class="wrap">© <span id="ano"></span> Microcrédito na Prática · Edson Damacene</div></footer>
+
+<!-- QUIZ DE QUALIFICAÇÃO (abre nos botões "Garantir a minha vaga") -->
+<div class="quiz" id="quiz" role="dialog" aria-modal="true" aria-labelledby="quiz-title" hidden>
+  <div class="quiz-backdrop" data-close></div>
+  <div class="quiz-card">
+    <button class="quiz-x" type="button" data-close aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+    <div class="quiz-top">
+      <p class="quiz-step-label"><span id="quiz-count">Passo 1 de 3</span></p>
+      <div class="quiz-bar"><span id="quiz-bar"></span></div>
+    </div>
+
+    <form class="quiz-body" id="quiz-form" novalidate>
+      <fieldset class="quiz-step" data-step="1">
+        <legend class="quiz-q" id="quiz-title">Qual destas frases te descreve melhor?</legend>
+        <p class="quiz-hint">Assim adaptamos a tua vaga ao teu momento.</p>
+        <div class="quiz-opts">
+          <label class="quiz-opt"><input type="radio" name="perfil" value="Trabalho numa instituição de microcrédito ou banco"><span class="qi"><i class="fa-solid fa-building-columns"></i></span><span>Trabalho numa instituição de microcrédito ou banco</span></label>
+          <label class="quiz-opt"><input type="radio" name="perfil" value="Quero abrir o meu próprio negócio de microcrédito"><span class="qi"><i class="fa-solid fa-rocket"></i></span><span>Quero abrir o meu próprio negócio de microcrédito</span></label>
+          <label class="quiz-opt"><input type="radio" name="perfil" value="Já empresto dinheiro, mas de forma informal"><span class="qi"><i class="fa-solid fa-hand-holding-dollar"></i></span><span>Já empresto dinheiro, mas de forma informal</span></label>
+          <label class="quiz-opt"><input type="radio" name="perfil" value="Estou a começar do zero"><span class="qi"><i class="fa-solid fa-seedling"></i></span><span>Estou a começar do zero</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="quiz-step" data-step="2" hidden>
+        <legend class="quiz-q">Qual é hoje o teu maior desafio?</legend>
+        <p class="quiz-hint">Escolhe o que mais te tira o sono.</p>
+        <div class="quiz-opts">
+          <label class="quiz-opt"><input type="radio" name="desafio" value="Saber a quem emprestar (análise de risco)"><span class="qi"><i class="fa-solid fa-user-check"></i></span><span>Saber a quem emprestar <small>análise de risco</small></span></label>
+          <label class="quiz-opt"><input type="radio" name="desafio" value="Cobranças e clientes em atraso"><span class="qi"><i class="fa-solid fa-clock-rotate-left"></i></span><span>Cobranças e clientes em atraso</span></label>
+          <label class="quiz-opt"><input type="radio" name="desafio" value="Organizar clientes, créditos e pagamentos"><span class="qi"><i class="fa-solid fa-table-list"></i></span><span>Organizar clientes, créditos e pagamentos</span></label>
+          <label class="quiz-opt"><input type="radio" name="desafio" value="Saber por onde começar"><span class="qi"><i class="fa-solid fa-compass"></i></span><span>Saber por onde começar</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="quiz-step" data-step="3" hidden>
+        <legend class="quiz-q">Como queres fazer o curso?</legend>
+        <p class="quiz-hint">Recomendamos-te o pacote certo.</p>
+        <div class="quiz-opts">
+          <label class="quiz-opt"><input type="radio" name="formato" value="Manual"><span class="qi"><i class="fa-solid fa-graduation-cap"></i></span><span>Só preciso das aulas e dos materiais</span></label>
+          <label class="quiz-opt"><input type="radio" name="formato" value="Completo"><span class="qi"><i class="fa-solid fa-star"></i></span><span>Quero aulas ao vivo e acesso ao sistema</span></label>
+          <label class="quiz-opt"><input type="radio" name="formato" value="Empresa / Equipa"><span class="qi"><i class="fa-solid fa-users"></i></span><span>Quero formar a minha equipa <small>até 3 pessoas</small></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="quiz-step quiz-result" data-step="4" hidden>
+        <span class="quiz-badge"><i class="fa-solid fa-circle-check"></i> Tens o perfil para esta turma</span>
+        <h3 class="quiz-q">O pacote ideal para ti é <b class="gold-t" id="quiz-pack">Completo</b></h3>
+        <p class="quiz-price" id="quiz-price">25 000 MT</p>
+        <p class="quiz-hint" id="quiz-msg"></p>
+        <label class="quiz-field"><span>O teu nome</span><input type="text" name="nome" id="quiz-nome" autocomplete="given-name" placeholder="Ex.: Ana" required></label>
+        <button type="submit" class="btn btn-red quiz-go">Reservar vaga no WhatsApp <i class="fa-brands fa-whatsapp"></i></button>
+        <p class="quiz-note"><i class="fa-solid fa-lock"></i> Turma limitada a 30 vagas · Início 30 de Outubro</p>
+      </fieldset>
+    </form>
+
+    <div class="quiz-nav">
+      <button type="button" class="quiz-back" id="quiz-back"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+    </div>
+  </div>
+</div>
 
 <script>
   // Número de WhatsApp para inscrições (formato internacional, só dígitos). Ex.: '258840000000'
@@ -864,6 +973,82 @@
     btn.target = '_blank';
     btn.rel = 'noopener';
   });
+
+  // Quiz de qualificação: 3 perguntas → recomendação do pacote → WhatsApp
+  const quiz = document.getElementById('quiz');
+  const qForm = document.getElementById('quiz-form');
+  const qSteps = [...quiz.querySelectorAll('.quiz-step')];
+  const qBack = document.getElementById('quiz-back');
+  const PACOTES = { 'Manual': '15 000 MT', 'Completo': '25 000 MT', 'Empresa / Equipa': '45 000 MT' };
+  const MSG_DESAFIO = {
+    'Saber a quem emprestar (análise de risco)': 'Vais aprender a analisar cada cliente antes de emprestar, com casos reais do mercado.',
+    'Cobranças e clientes em atraso': 'Vais ver na prática como acompanhar créditos e cobranças para reduzir os atrasos.',
+    'Organizar clientes, créditos e pagamentos': 'Vais usar um sistema de gestão completo para ter clientes, créditos e pagamentos em ordem.',
+    'Saber por onde começar': 'Vais começar do zero até à gestão real de uma operação, passo a passo.'
+  };
+  let qStep = 0, lastFocus = null;
+
+  const showStep = i => {
+    qStep = i;
+    qSteps.forEach((s, k) => { s.hidden = k !== i; });
+    const total = 3, onResult = i >= total;
+    document.getElementById('quiz-count').textContent = onResult ? 'Pronto!' : `Passo ${i + 1} de ${total}`;
+    document.getElementById('quiz-bar').style.width = (onResult ? 100 : (i / total) * 100 + 8) + '%';
+    qBack.style.visibility = i === 0 ? 'hidden' : 'visible';
+    // foca o título do passo (leitores de ecrã) ou o campo do nome no resultado
+    // no telemóvel não foca o campo, para o teclado não tapar o resultado
+    const touch = matchMedia('(pointer: coarse)').matches;
+    const target = onResult ? (touch ? null : document.getElementById('quiz-nome')) : qSteps[i].querySelector('.quiz-q');
+    if (target) { if (!onResult) target.tabIndex = -1; setTimeout(() => target.focus({ preventScroll: true }), 60); }
+  };
+
+  const fillResult = () => {
+    const d = new FormData(qForm);
+    const pack = d.get('formato') || 'Completo';
+    document.getElementById('quiz-pack').textContent = pack;
+    document.getElementById('quiz-price').textContent = PACOTES[pack];
+    document.getElementById('quiz-msg').textContent = MSG_DESAFIO[d.get('desafio')] || '';
+  };
+
+  const openQuiz = () => {
+    lastFocus = document.activeElement;
+    quiz.hidden = false;
+    requestAnimationFrame(() => quiz.classList.add('open'));
+    document.documentElement.style.overflow = 'hidden';
+    showStep(0);
+  };
+  const closeQuiz = () => {
+    quiz.classList.remove('open');
+    document.documentElement.style.overflow = '';
+    setTimeout(() => { quiz.hidden = true; }, reduce ? 0 : 250);
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
+  };
+
+  document.querySelectorAll('[data-quiz]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); openQuiz(); }));
+  quiz.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', closeQuiz));
+  qBack.addEventListener('click', () => showStep(Math.max(0, qStep - 1)));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !quiz.hidden) closeQuiz(); });
+
+  // escolher uma opção avança sozinho
+  qForm.addEventListener('change', e => {
+    if (e.target.type !== 'radio') return;
+    setTimeout(() => {
+      if (qStep === 2) fillResult();
+      showStep(qStep + 1);
+    }, 260);
+  });
+
+  qForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const nome = document.getElementById('quiz-nome');
+    if (!nome.value.trim()) { nome.focus(); nome.classList.add('err'); return; }
+    const d = new FormData(qForm);
+    const pack = d.get('formato');
+    const msg = `Olá! Sou ${nome.value.trim()} e quero garantir a minha vaga no curso "Microcrédito na Prática".\n\n` +
+      `• Perfil: ${d.get('perfil')}\n• Maior desafio: ${d.get('desafio')}\n• Pacote: ${pack} (${PACOTES[pack]})`;
+    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+  });
+  document.getElementById('quiz-nome').addEventListener('input', e => e.target.classList.remove('err'));
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
